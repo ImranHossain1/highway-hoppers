@@ -7,6 +7,7 @@ import {
   QuestionCircleOutlined,
   ScheduleOutlined,
 } from "@ant-design/icons";
+import styles from "./homepage.module.css";
 
 const AskButtons = () => (
   <div
@@ -15,13 +16,7 @@ const AskButtons = () => (
       justifyContent: "center",
     }}
   >
-    <Row
-      style={{
-        width: "70%",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        padding: "20px",
-      }}
-    >
+    <Row className={styles.rawStyle} style={{ padding: "20px 20px" }}>
       <Col
         xs={24}
         md={12}
@@ -29,7 +24,6 @@ const AskButtons = () => (
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
         <div>
@@ -46,7 +40,6 @@ const AskButtons = () => (
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
         <div>
@@ -63,7 +56,6 @@ const AskButtons = () => (
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
         <div>

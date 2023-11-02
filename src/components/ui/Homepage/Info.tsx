@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { Layout, Space } from "antd";
+import styles from "./homepage.module.css";
+import { EuroOutlined } from "@ant-design/icons";
+import { Divider } from "antd";
 
-const { Header, Footer, Sider, Content } = Layout;
 const Info = () => {
   return (
     <div
@@ -12,18 +13,28 @@ const Info = () => {
       }}
     >
       <div
+        className={styles.rawStyle}
         style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          width: "50%",
           padding: "20px ",
         }}
       >
-        <h2 style={{ margin: "10px 0", color: "#e9c46a" }}>
-          Get Cheap Bus Tickets Easily with Highway Hoppers!
-        </h2>
-        <p style={{ color: "#218380" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <EuroOutlined style={{ color: "#218380", fontSize: 25 }} />
+          </div>
+          <h2 style={{ margin: "10px 0 10px 5px", color: "#218380" }}>
+            Get Cheap Bus Tickets Easily with Highway Hoppers!
+          </h2>
+        </div>
+        <p>
           If you are looking to travel by bus in your country or even worldwide,
           Highway Hoppers has got you covered with our extensive bus routes!
           With over 400,000 routes worldwide, you can easily find the perfect
@@ -31,10 +42,22 @@ const Info = () => {
           affordable to get wherever you want to go, whether it is for work or
           play.
         </p>
-        <h2 style={{ margin: "10px 0", color: "#e9c46a" }}>
-          Bus Routes to Suit Your Schedule
-        </h2>
-        <p style={{ color: "#218380" }}>
+        <Divider></Divider>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <EuroOutlined style={{ color: "#218380", fontSize: 25 }} />
+          </div>
+          <h2 style={{ margin: "10px 0 10px 5px", color: "#218380" }}>
+            Bus Routes to Suit Your Schedule
+          </h2>
+        </div>
+
+        <p>
           Traveling with Highway Hoppers is simple and hassle-free, thanks to
           our frequent bus connections, reliable schedules, and modern vehicles.
           With over 400,000 bus routes across the globe, including Europe and
@@ -47,10 +70,22 @@ const Info = () => {
           go with free WiFi on most of our buses and trains, and track your
           journey in real-time with our advanced tracking system.
         </p>
-        <h2 style={{ margin: "10px 0", color: "#e9c46a" }}>
-          Buying Your Bus Tickets is Easy with Highway Hoppers
-        </h2>
-        <p style={{ color: "#218380" }}>
+        <Divider></Divider>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <EuroOutlined style={{ color: "#218380", fontSize: 25 }} />
+          </div>
+          <h2 style={{ margin: "10px 0 10px 5px", color: "#218380" }}>
+            Buying Your Bus Tickets is Easy with Highway Hoppers
+          </h2>
+        </div>
+        <p>
           Our website and app make it easy to plan your journey, find the
           cheapest bus fares, and purchase your bus tickets securely. Whether
           you are planning or booking last-minute trip, Highway Hoppers makes
@@ -58,10 +93,22 @@ const Info = () => {
           system, you can board your bus without the hassle of paper tickets as
           your phone will serve as your ticket!
         </p>
-        <h2 style={{ margin: "10px 0", color: "#e9c46a" }}>
-          Discover the Best Destinations Highway Hoppers has to Offer
-        </h2>
-        <p style={{ color: "#218380" }}>
+        <Divider></Divider>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <EuroOutlined style={{ color: "#218380", fontSize: 25 }} />
+          </div>
+          <h2 style={{ margin: "10px 0 10px 5px", color: "#218380" }}>
+            Discover the Best Destinations Highway Hoppers has to Offer
+          </h2>
+        </div>
+        <p>
           Hop onboard a Highway Hoppers and visit some of the most popular
           cities across our global network. Whether you are exploring the
           history of Rome, enjoying the beaches of Lisbon, taking in the sights
@@ -69,10 +116,22 @@ const Info = () => {
           Highway Hoppers has a route for you to experience the best that the
           world has to offer.
         </p>
-        <h2 style={{ margin: "10px 0", color: "#e9c46a" }}>
-          Travelling with Highway Hoppers is a more sustainable choice
-        </h2>
-        <p style={{ color: "#218380" }}>
+        <Divider></Divider>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <EuroOutlined style={{ color: "#218380", fontSize: 25 }} />
+          </div>
+          <h2 style={{ margin: "10px 0 10px 5px", color: "#218380" }}>
+            Travelling with Highway Hoppers is a more sustainable choice
+          </h2>
+        </div>
+        <p>
           Traveling by bus is not just a convenient choice but also an
           environmentally responsible one, as bus travel reduces traffic and
           emissions compared to travelling by car. We’re working to make bus
@@ -82,10 +141,22 @@ const Info = () => {
           tickets. So, when you travel with Highway Hoppers you can know you’re
           making a responsible choice
         </p>
-        <h2 style={{ margin: "10px 0", color: "#e9c46a" }}>
-          Travel in Comfort and Style
-        </h2>
-        <p style={{ color: "#218380" }}>
+        <Divider></Divider>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <EuroOutlined style={{ color: "#218380", fontSize: 25 }} />
+          </div>
+          <h2 style={{ margin: "10px 0 10px 5px", color: "#218380" }}>
+            Travel in Comfort and Style
+          </h2>
+        </div>
+        <p>
           Highway Hoppers prioritizes comfort and convenience for your journey.
           With amenities like on-board WiFi, extra legroom, power outlets and
           toilets on board, we have thought of everything to make your trip as

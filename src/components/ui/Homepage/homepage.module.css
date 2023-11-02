@@ -1,0 +1,36 @@
+.rawStyle {
+    width: 70%; /* Default to 70% width on larger devices */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .banner {
+    display: block;
+  }
+  .footer{
+    display: none;
+  }
+  .footerImage{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around
+  }
+  @media (max-width: 768px )  {
+    .rawStyle {
+      width: 100%; /* Width is 100% for devices with a width less than 768px */
+    }
+  
+    .banner {
+        display: none; /* "auto" without double quotes */
+    }
+    .footer{
+      display: block;
+    }
+    .footerImage{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between
+    }
+  }
+  

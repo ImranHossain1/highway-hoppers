@@ -12,6 +12,36 @@ export const genderOptions = [
     value: "others",
   },
 ];
+export const pointsOption = [
+  {
+    label: "DHAKA",
+    value: "DHAKA",
+  },
+  {
+    label: "KHULNA",
+    value: "KHULNA",
+  },
+  {
+    label: "RAJSHAHI",
+    value: "RAJSHAHI",
+  },
+  {
+    label: "SYLHET",
+    value: "SYLHET",
+  },
+  {
+    label: "BARISHAL",
+    value: "BARISHAL",
+  },
+  {
+    label: "CHOTTOGRAM",
+    value: "CHOTTOGRAM",
+  },
+  {
+    label: "RONGPUR",
+    value: "RONGPUR",
+  },
+];
 export const departmentOptions = [
   {
     label: "HR",
@@ -127,6 +157,7 @@ export const days = [
   "THURSDAY",
   "FRIDAY",
 ];
+
 export const daysOptions = days.map((day: string) => {
   return {
     label: day,

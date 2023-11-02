@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import { Col, Row } from "antd";
+import styles from "./homepage.module.css";
+
 import {
   ApiOutlined,
   HeartOutlined,
@@ -16,7 +18,7 @@ const Priorities = () => (
       justifyContent: "center",
     }}
   >
-    <Row style={{ width: "70%", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
+    <Row className={styles.rawStyle}>
       <Col xs={24} md={12} lg={6}>
         <div
           style={{

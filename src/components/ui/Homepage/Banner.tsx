@@ -2,54 +2,40 @@ import React from "react";
 import { Layout, Typography, Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-
-const { Header, Content } = Layout;
-
+import SearchField from "../SearchField";
+import style from "./homepage.module.css";
 const Banner = () => {
   return (
     <div
       style={{
-        backgroundPosition: "center",
-        height: "80vh",
         position: "relative",
+        width: "100%",
+        paddingBottom: "56.25%", // 16:9 aspect ratio (adjust as needed)
+        filter: "contrast(70%)",
       }}
     >
       <Image
-        height={2000}
-        width={2000}
         src="/assets/bus-1.jpg"
         alt="Hero Background"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          filter: "contrast(50%)",
-        }}
+        layout="fill"
+        objectFit="cover"
       />
-
       <div
         style={{
           position: "absolute",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          top: "10%",
+          left: "50%",
+          transform: "translate(-50%, -50%)", // Center the content
+          textAlign: "center",
+          width: "100%",
         }}
       >
         <p
+          className={style.banner}
           style={{
-            fontSize: "1.875rem",
+            fontSize: "1.3rem",
             fontWeight: 600,
             textTransform: "uppercase",
-            background: "rgba(255, 255, 255, 0.2)",
-
             padding: "15px",
             borderRadius: "10px",
           }}
@@ -57,33 +43,35 @@ const Banner = () => {
           TRAVEL IS NEVER A MATTER OF MONEY, BUT OF COURAGE
         </p>
         <p
+          className={style.banner}
           style={{
             marginTop: "10px",
-            fontSize: "1.875rem",
-            fontWeight: 800,
+            fontSize: "1.2rem",
+            fontWeight: 600,
             textTransform: "uppercase",
             padding: "15px",
-            color: "#218380",
+            color: "#780116",
             borderRadius: "10px",
-            background: "rgba(255, 255, 255, 0.2)",
+            // background: "rgba(255, 255, 255, 0.2)",
           }}
         >
-          Low cost bus travel from just €5
+          Find your next destination by{" "}
+          <span style={{ color: "#218380" }}>Highway Hoppers</span>
         </p>
-        <Link href="/book-now">
+        {/* <Link href="/book-now">
           <Button
             type="primary"
             htmlType="submit"
             style={{
               marginTop: "10px",
-              width: "100%",
+
               color: "#e9c46a",
               backgroundColor: "#218380",
             }}
           >
             Book Now
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

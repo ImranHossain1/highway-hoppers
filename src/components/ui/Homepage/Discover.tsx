@@ -1,32 +1,20 @@
 "use client";
 import React from "react";
 import { Button, Col, Divider, Row, Typography } from "antd";
-import {
-  ApiOutlined,
-  HeartOutlined,
-  RightOutlined,
-  SafetyOutlined,
-  WifiOutlined,
-} from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 import Image from "next/image";
-const { Title } = Typography;
-const style: React.CSSProperties = { background: "#0092ff", padding: "8px 0" };
+import styles from "./homepage.module.css";
 
-const Discover: React.FC = () => (
+const Discover = () => (
   <div
     style={{
       display: "flex",
       justifyContent: "center",
+      height: "300px",
     }}
   >
-    <Row
-      style={{
-        width: "70%",
-        border: "1px solid #e9c46a",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      }}
-    >
-      <Col xs={24} md={12}>
+    <Row className={styles.rawStyle}>
+      <Col xs={12} sm={12} md={12}>
         <Image
           height={1000}
           width={1000}
@@ -42,19 +30,21 @@ const Discover: React.FC = () => (
           }}
         />
       </Col>
-      <Col xs={24} md={12}>
+      <Col xs={12} sm={12} md={12}>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyItems: "center",
+            alignItems: "center",
+            justifyContent: "center",
             textAlign: "center",
             margin: "20px 10px",
+            height: "100%", // To center the content vertically
           }}
         >
           <h1 style={{ color: "#218380" }}>Discover All Destinations</h1>
-          <p style={{ margin: "0 20px" }}>
-            Choose from over 2000 travel destination in 60 Districts
+          <p style={{ margin: "10px 20px" }}>
+            Choose from over 2000 travel destinations in 60 Districts
           </p>
           <p style={{ color: "#218380", marginTop: "5px" }}>
             Explore the Map <RightOutlined />
