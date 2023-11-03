@@ -18,6 +18,7 @@ export const getUserInfo = () => {
 
 export const isLoggedIn = (): boolean => {
   const authToken = getFromLocalStorage(authKey);
+  console.log(!!authToken);
   return !!authToken;
 };
 

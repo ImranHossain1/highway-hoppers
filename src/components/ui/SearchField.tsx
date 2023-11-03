@@ -1,28 +1,46 @@
 "use client";
 
 import Form from "@/components/ui/Forms/Form";
-import FormInput from "@/components/ui/Forms/FormInput";
 import { Button, Col, Row, message } from "antd";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { departmentSchema } from "@/schemas/department";
-import { useRouter } from "next/navigation";
+
 import { pointsOption } from "@/constants/global";
 import styles from "../ui/Homepage/homepage.module.css";
 import FormSelectField from "./Forms/FormSelectField";
 import FormDatePicker from "./Forms/FormDatePicker";
-const SearchField = () => {
+import { useRouter } from "next/navigation";
+
+type SearchOptions = {
+  startingPoint?: string;
+  endPoint?: string;
+  startDate?: string;
+};
+const SearchField = ({ searchParams }: { searchParams: SearchOptions }) => {
   const router = useRouter();
-  const onSubmit = async (data: any) => {
-    console.log(data);
-    try {
-      /* const res = await addAcademicFaculty(data);
-      if (!!res) {
-        message.success("Academic Faculty Created Successfully");
-        router.push("/admin/academic/faculty");
-      } */
-    } catch (err: any) {
-      message.error(err.message);
+
+  const defaultValues = {
+    startingPoint: searchParams?.startingPoint || null,
+    endPoint: searchParams?.endPoint || null,
+    startDate: searchParams?.startDate || null,
+  };
+
+  const onSubmit = async (data: SearchOptions) => {
+    const queryParams: SearchOptions = {};
+
+    if (data.startDate) {
+      queryParams.startDate = data.startDate;
     }
+
+    if (data.startingPoint) {
+      queryParams.startingPoint = data.startingPoint;
+    }
+    if (data.endPoint) {
+      queryParams.endPoint = data.endPoint;
+    }
+
+    const queryString = new URLSearchParams(queryParams).toString();
+    const destination = queryString ? `book-now?${queryString}` : "book-now";
+
+    router.push(destination);
   };
   return (
     <div
@@ -31,18 +49,24 @@ const SearchField = () => {
         flexDirection: "column",
         alignItems: "center", // Center horizontally
         justifyContent: "center", // Center vertically
-        height: "300px",
+        padding: "20px 0",
       }}
     >
-      <h1 style={{ textTransform: "capitalize", color: "#218380" }}>
+      <h1
+        style={{
+          textTransform: "capitalize",
+          color: "#218380",
+          margin: "20px",
+        }}
+      >
         Find Your Next Destination
       </h1>
       <div className={styles.rawStyle} style={{ padding: "20px" }}>
-        <Form submitHandler={onSubmit}>
+        <Form submitHandler={onSubmit} defaultValues={defaultValues}>
           <Row gutter={16}>
             <Col xs={24} md={8} lg={8} className="gutter-row">
               <FormSelectField
-                name="startPoint"
+                name="startingPoint"
                 size="large"
                 options={pointsOption}
                 label="Start Point"

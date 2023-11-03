@@ -23,9 +23,9 @@ const LoginPage = () => {
     console.log("Before API call");
     try {
       const res = await userLogin({ ...data }).unwrap();
-      console.log("After API call");
+      console.log(res);
 
-      if (res?.accessToken) {
+       if (res?.accessToken) {
         message.success("User logged in successfully!");
         storeUserInfo({ accessToken: res?.accessToken });
         router.push("/");
@@ -33,12 +33,7 @@ const LoginPage = () => {
         message.error("Invalid Credential");
       }
     } catch (err: any) {
-      if (err.response) {
-        const errorResponse = err.response.data;
-        console.error("Error: ", errorResponse.message);
-      } else {
-        console.error(err.message);
-      }
+      console.log(err);
     }
   };
 

@@ -5,6 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { Layout, Typography, theme } from "antd";
 import Link from "next/link";
 import { MenuOutlined } from "@ant-design/icons";
+import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
+import { authKey } from "@/constants/storageKey";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -16,6 +18,8 @@ const Navbar = ({
   items: { key: string; label: string; href: string }[];
   hasSider?: boolean;
 }) => {
+  const userLoggedIn = isLoggedIn();
+
   const {
     token: { colorBgLayout },
   } = theme.useToken();
@@ -24,6 +28,11 @@ const Navbar = ({
   const [showFullHeader, setShowFullHeader] = useState(true); // Initially, show the full header
   const [open, setOpen] = useState(false);
 
+  const logout = () => {
+    removeUserInfo(authKey);
+    router.push("/login");
+  };
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -31,6 +40,7 @@ const Navbar = ({
   const onClose = () => {
     setOpen(false);
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -77,13 +87,48 @@ const Navbar = ({
               theme="dark"
               mode="horizontal"
               selectedKeys={[pathname]}
-              style={{ display: "block", background: colorBgLayout }} // Style for large screens
+              style={{ display: "block", background: colorBgLayout }}
             >
               {items?.map((item) => (
                 <Menu.Item key={item.href}>
                   <Link href={item.href}>{item.label}</Link>
                 </Menu.Item>
               ))}
+              {userLoggedIn ? (
+                <>
+                  <Menu.Item key="/dashboard">
+                    <Link href="/dashboard">Dashboard</Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Button type="primary" onClick={logout} danger>
+                      Logout
+                    </Button>
+                  </Menu.Item>
+                </>
+              ) : (
+                <>
+                  <Menu.Item>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        router.push("/login");
+                      }}
+                    >
+                      Sign In
+                    </Button>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        router.push("/signup");
+                      }}
+                    >
+                      Sign Up
+                    </Button>
+                  </Menu.Item>
+                </>
+              )}
             </Menu>
           </>
         ) : (
@@ -114,6 +159,41 @@ const Navbar = ({
                     <Link href={item.href}>{item.label}</Link>
                   </Menu.Item>
                 ))}
+                {userLoggedIn ? (
+                  <>
+                    <Menu.Item key="/dashboard">
+                      <Link href="/dashboard">Dashboard</Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <Button type="primary" onClick={logout}>
+                        Logout
+                      </Button>
+                    </Menu.Item>
+                  </>
+                ) : (
+                  <>
+                    <Menu.Item>
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          router.push("/login");
+                        }}
+                      >
+                        Sign In
+                      </Button>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          router.push("/signup");
+                        }}
+                      >
+                        Sign Up
+                      </Button>
+                    </Menu.Item>
+                  </>
+                )}
               </Menu>
             </Drawer>
           </>

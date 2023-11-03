@@ -1,9 +1,15 @@
+"use client";
+import SearchField from "@/components/ui/SearchField";
+import TableRow from "@/components/ui/TableRow";
 import React from "react";
 
-const Book = () => {
+const Book = (props: any) => {
+  const { searchParams } = props;
+  console.log(searchParams);
   return (
     <div>
-      <h2>Book Now</h2>
+      <SearchField searchParams={searchParams} />
+      <TableRow searchParams={searchParams} />
     </div>
   );
 };

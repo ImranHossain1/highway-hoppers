@@ -10,10 +10,15 @@ import { Divider } from "antd";
 import React from "react";
 
 const Home = () => {
+  const searchParams = {
+    startingPoint: "",
+    endPoint: "",
+    startDate: "",
+  };
   return (
     <>
       <Banner />
-      <SearchField></SearchField>
+      <SearchField searchParams={searchParams}></SearchField>
       <Divider></Divider>
       <Discover />
       <Divider></Divider>

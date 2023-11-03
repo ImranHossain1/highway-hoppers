@@ -5,7 +5,7 @@ import React from "react";
 type UMTableProps = {
   columns: any;
   loading?: boolean;
-  dataSource: any;
+  dataSource?: any;
   pageSize?: number;
   total?: number;
   showSizeChanger?: boolean;
