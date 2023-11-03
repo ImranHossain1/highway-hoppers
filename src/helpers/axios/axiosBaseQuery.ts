@@ -11,7 +11,6 @@ export const axiosBaseQuery =
       url: string;
       method: AxiosRequestConfig["method"];
       data?: AxiosRequestConfig["data"];
-      message?: string;
       meta?: IMeta;
       params?: AxiosRequestConfig["params"];
       headers?: AxiosRequestConfig["headers"];

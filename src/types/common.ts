@@ -3,11 +3,14 @@ export interface IMeta {
   page: number;
   total: number;
 }
+export interface IMessage {
+  message: string;
+}
 
 export type ResponseSuccessType = {
   data: any;
   meta?: IMeta;
-  message?: string;
+  message?: IMessage;
 };
 
 export type IGenericErrorResponse = {
@@ -60,4 +63,8 @@ export interface IDriver {
   userId: string;
   totalReviewer: number;
   totalRatings: number;
+}
+
+export interface IAuth {
+  accessToken: string;
 }

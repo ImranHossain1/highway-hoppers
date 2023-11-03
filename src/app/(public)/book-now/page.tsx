@@ -5,7 +5,6 @@ import React from "react";
 
 const Book = (props: any) => {
   const { searchParams } = props;
-  console.log(searchParams);
   return (
     <div>
       <SearchField searchParams={searchParams} />

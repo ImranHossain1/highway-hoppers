@@ -29,19 +29,19 @@ instance.interceptors.response.use(
   // @ts-ignore
   function (response) {
     const responseObject: ResponseSuccessType = {
-      data: response?.data?.data,
+      data: response?.data,
       meta: response?.data?.meta,
     };
     return responseObject;
-  },
-  function (error) {
+  }
+  /*   function (error) {
     const responseObject: IGenericErrorResponse = {
       statusCode: error,
       message: error?.response?.data?.message || "Something went wrong",
       errorMessages: error?.response?.data?.message,
     };
     return responseObject;
-  }
+  } */
 );
 
 export { instance };

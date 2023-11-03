@@ -20,9 +20,9 @@ export const scheduleApi = baseApi.injectEndpoints({
         method: "GET",
         params: arg,
       }),
-      transformResponse: (response: ISchedule, meta: IMeta) => {
+      transformResponse: (response: any, meta: IMeta) => {
         return {
-          schedules: response,
+          schedules: response.data,
           meta,
         };
       },
@@ -32,6 +32,13 @@ export const scheduleApi = baseApi.injectEndpoints({
     singleSchedule: build.query({
       query: (id) => ({
         url: `${BUS_SCHEDULE_API}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.schedule],
+    }),
+    availableSits: build.query({
+      query: (id) => ({
+        url: `${BUS_SCHEDULE_API}/${id}/availableSits`,
         method: "GET",
       }),
       providesTags: [tagTypes.schedule],
@@ -62,4 +69,5 @@ export const {
   useSchedulesQuery,
   useSingleScheduleQuery,
   useUpdateScheduleMutation,
+  useAvailableSitsQuery,
 } = scheduleApi;

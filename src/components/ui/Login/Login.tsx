@@ -20,20 +20,15 @@ const LoginPage = () => {
   const [userLogin] = useUserLoginMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
-    console.log("Before API call");
     try {
       const res = await userLogin({ ...data }).unwrap();
-      console.log(res);
-
-       if (res?.accessToken) {
-        message.success("User logged in successfully!");
-        storeUserInfo({ accessToken: res?.accessToken });
+      if (res?.success === true) {
+        message.success(res?.message);
+        storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
-      } else {
-        message.error("Invalid Credential");
       }
     } catch (err: any) {
-      console.log(err);
+      message.error(err.data.message);
     }
   };
 

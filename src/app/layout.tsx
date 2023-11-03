@@ -2,9 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "@/lib/Providers";
-import Navbar from "@/components/view/Navbar";
-import FooterComponent from "@/components/view/Footer";
-import PublicHeader from "@/components/ui/PublicHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
-          {children}
-          <FooterComponent />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
