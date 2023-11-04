@@ -14,7 +14,7 @@ export type ResponseSuccessType = {
 };
 
 export type IGenericErrorResponse = {
-  statusCode: number;
+  statusCode: boolean;
   message?: string;
   errorMessages?: IGenericErrorMessage[];
 };

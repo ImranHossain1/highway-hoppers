@@ -7,8 +7,8 @@ import {
   useSingleScheduleQuery,
 } from "@/redux/api/scheduleApi";
 import { useUserProfileQuery } from "@/redux/api/userApi";
-import { getUserInfo, isLoggedIn } from "@/services/auth.service";
-import { Avatar, Button, Col, Divider, Row, message } from "antd";
+import {  isLoggedIn } from "@/services/auth.service";
+import { Button, Col, Divider, Row, Space, Spin, message } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "../../../../components/ui/Homepage/homepage.module.css";
@@ -41,25 +41,41 @@ const BookReservation = ({ params }: IDProps) => {
   const [selectedSeats, setSelectedSeats] = useState<
     Array<{ bus_SitId: string }>
   >([]);
+  const {
+    data,
+    isError: scheduleError,
+    isLoading: scheduleLoading,
+  } = useSingleScheduleQuery(id);
+  const {
+    data: availableSit,
+    isError: availableSitError,
+    isLoading: availableSitLoading,
+  } = useAvailableSitsQuery(id);
+  const {
+    data: bus,
+    isError: busError,
+    isLoading: busLoading,
+  } = useGetSingleBusQuery(data?.data?.busId);
+
+  const {
+    data: userData,
+    isLoading: userLoading,
+    isError: userError,
+  } = useUserProfileQuery({});
 
   useEffect(() => {
-    if (!userLoggedIn) {
+    if (userLoggedIn) {
+      if (availableSitError) {
+        setIsLoading(true);
+        console.log("Error loading availableSit data:", availableSitError);
+        // You can show an error message here if needed
+      } else if (availableSit) {
+        setIsLoading(false);
+      }
+    } else {
       router.push("/login");
     }
-    setIsLoading(true);
-  }, [router, isLoading]);
-
-  const { data, isLoading: scheduleLoading } = useSingleScheduleQuery(id);
-  const { data: availableSit, isLoading: availableSitLoading } =
-    useAvailableSitsQuery(id);
-  const { data: bus, isLoading: busLoading } = useGetSingleBusQuery(
-    data?.data?.busId
-  );
-
-  const { data: userData, isLoading: userLoading } = useUserProfileQuery({});
-  if (scheduleLoading || userLoading || availableSitLoading || busLoading) {
-    <Loading></Loading>;
-  }
+  }, [router, userLoggedIn, availableSit, availableSitError]);
 
   function renderStarRating(rating: number) {
     const maxStars = 5;
@@ -81,7 +97,7 @@ const BookReservation = ({ params }: IDProps) => {
 
     return stars;
   }
-  const rating = 2.5;
+  const rating = data?.data?.driver?.rating;
   const starRating = renderStarRating(rating);
 
   const handleButtonClick = (sitId: string) => {
@@ -114,13 +130,20 @@ const BookReservation = ({ params }: IDProps) => {
       ]);
     }
   };
-  const price = data?.data?.busFare;
   useEffect(() => {
     // Calculate the total price whenever selectedSeatsCount changes
     if (data?.data?.busFare !== undefined) {
       setTotalPrice(selectedSeatsCount * data?.data?.busFare);
     }
-  }, [selectedSeatsCount, data]);
+  }, [
+    selectedSeatsCount,
+    data,
+    scheduleLoading,
+    userLoading,
+    availableSitLoading,
+    busLoading,
+  ]);
+
   const [addBooking] = useAddBookingMutation();
 
   const makeBooking = async () => {
@@ -131,12 +154,27 @@ const BookReservation = ({ params }: IDProps) => {
     try {
       const res = await addBooking(bookingData).unwrap();
       if (res.statusCode == 200) {
+        router.push("/user");
         message.success(res.message);
       }
     } catch (error: any) {
       message.error(error.data.message);
     }
   };
+
+  if (isLoading) {
+    <Row
+      justify="center"
+      align="middle"
+      style={{
+        height: "100vh",
+      }}
+    >
+      <Space>
+        <Spin tip="Loading" size="large"></Spin>
+      </Space>
+    </Row>;
+  }
   return (
     <div
       style={{

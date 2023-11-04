@@ -27,6 +27,8 @@ const SignUpPage = () => {
         message.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
+      } else {
+        message.error(res?.message);
       }
     } catch (err: any) {
       message.error(err.data.message);

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { MenuOutlined } from "@ant-design/icons";
 import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
 import { authKey } from "@/constants/storageKey";
+import dynamic from "next/dynamic";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -18,7 +19,7 @@ const Navbar = ({
   items: { key: string; label: string; href: string }[];
   hasSider?: boolean;
 }) => {
-  const userLoggedIn = isLoggedIn();
+  const [userLoggedIn, setUserLoggedIn] = useState(isLoggedIn()); // Initialize userLoggedIn state
 
   const {
     token: { colorBgLayout },
@@ -27,10 +28,19 @@ const Navbar = ({
   const pathname = usePathname();
   const [showFullHeader, setShowFullHeader] = useState(true); // Initially, show the full header
   const [open, setOpen] = useState(false);
+  const Login = dynamic(() => import("./Buttons/Login"), { ssr: false });
+  const Logout = dynamic(() => import("./Buttons/Logout"), { ssr: false });
+  const Dashboard = dynamic(() => import("./Buttons/DashboardButton"), {
+    ssr: false,
+  });
+  const Signup = dynamic(() => import("./Buttons/SignupButton"), {
+    ssr: false,
+  });
 
   const logout = () => {
     removeUserInfo(authKey);
-    router.push("/login");
+    setUserLoggedIn(false);
+    // router.push("/login");
   };
 
   const showDrawer = () => {
@@ -97,35 +107,19 @@ const Navbar = ({
               {userLoggedIn ? (
                 <>
                   <Menu.Item key="/dashboard">
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Dashboard />
                   </Menu.Item>
                   <Menu.Item>
-                    <Button type="primary" onClick={logout} danger>
-                      Logout
-                    </Button>
+                    <Logout onLogout={logout} />
                   </Menu.Item>
                 </>
               ) : (
                 <>
-                  <Menu.Item>
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        router.push("/login");
-                      }}
-                    >
-                      Sign In
-                    </Button>
+                  <Menu.Item key="/dashboard">
+                    <Login />
                   </Menu.Item>
                   <Menu.Item>
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        router.push("/signup");
-                      }}
-                    >
-                      Sign Up
-                    </Button>
+                    <Signup />
                   </Menu.Item>
                 </>
               )}
@@ -162,35 +156,19 @@ const Navbar = ({
                 {userLoggedIn ? (
                   <>
                     <Menu.Item key="/dashboard">
-                      <Link href="/dashboard">Dashboard</Link>
+                      <Dashboard />
                     </Menu.Item>
                     <Menu.Item>
-                      <Button type="primary" onClick={logout}>
-                        Logout
-                      </Button>
+                      <Logout onLogout={logout} />
                     </Menu.Item>
                   </>
                 ) : (
                   <>
-                    <Menu.Item>
-                      <Button
-                        type="primary"
-                        onClick={() => {
-                          router.push("/login");
-                        }}
-                      >
-                        Sign In
-                      </Button>
+                    <Menu.Item key="/dashboard">
+                      <Login />
                     </Menu.Item>
                     <Menu.Item>
-                      <Button
-                        type="primary"
-                        onClick={() => {
-                          router.push("/signup");
-                        }}
-                      >
-                        Sign Up
-                      </Button>
+                      <Signup />
                     </Menu.Item>
                   </>
                 )}
