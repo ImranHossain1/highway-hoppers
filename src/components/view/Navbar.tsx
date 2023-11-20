@@ -28,8 +28,8 @@ const Navbar = ({
   const pathname = usePathname();
   const [showFullHeader, setShowFullHeader] = useState(true); // Initially, show the full header
   const [open, setOpen] = useState(false);
-  const Login = dynamic(() => import("./Buttons/Login"), { ssr: false });
-  const Logout = dynamic(() => import("./Buttons/Logout"), { ssr: false });
+  const Login = dynamic(() => import("./Buttons/LoginButton"), { ssr: false });
+  const Logout = dynamic(() => import("./Buttons/LogoutButton"), { ssr: false });
   const Dashboard = dynamic(() => import("./Buttons/DashboardButton"), {
     ssr: false,
   });

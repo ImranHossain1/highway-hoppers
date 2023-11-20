@@ -7,7 +7,7 @@ import FormInput from "@/components/ui/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 type FormValues = {
@@ -18,7 +18,7 @@ type FormValues = {
 const LoginPage = () => {
   const router = useRouter();
   const [userLogin] = useUserLoginMutation();
-
+  const pathname = usePathname();
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();

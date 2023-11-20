@@ -2,8 +2,8 @@ import { Button } from "antd";
 import Link from "next/link";
 import React from "react";
 
-const Login = () => {
+const LoginButton = () => {
   return <Link href="/login">SIGN IN</Link>;
 };
 
-export default Login;
+export default LoginButton;
