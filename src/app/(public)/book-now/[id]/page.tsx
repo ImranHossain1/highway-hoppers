@@ -154,7 +154,7 @@ const BookReservation = ({ params }: IDProps) => {
     try {
       const res = await addBooking(bookingData).unwrap();
       if (res.statusCode == 200) {
-        router.push("dashboard/user");
+        router.push("user");
         message.success(res.message);
       }
     } catch (error: any) {
