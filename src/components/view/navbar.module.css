@@ -1,0 +1,14 @@
+.navbar {
+   display: block;
+  }
+.navbar2{
+  display: none;
+}
+  @media (max-width: 768px )  {
+    .navbar {
+      display: none;
+    }
+    .navbar2 {
+      display: block;
+     }
+  }

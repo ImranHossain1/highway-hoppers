@@ -33,15 +33,16 @@ instance.interceptors.response.use(
       meta: response?.data?.meta,
     };
     return responseObject;
-  }
-  /*   function (error) {
+  },
+  function (error) {
+    console.log(error.response);
     const responseObject: IGenericErrorResponse = {
       statusCode: error,
       message: error?.response?.data?.message || "Something went wrong",
       errorMessages: error?.response?.data?.message,
     };
-    return responseObject;
-  } */
+    return error.response;
+  }
 );
 
 export { instance };

@@ -20,6 +20,12 @@
     align-items: center;
     justify-content: space-around
   }
+  .sidebar {
+    display: none;
+   }
+ .hamburger{
+    display: none;
+ }
   @media (max-width: 768px )  {
     .rawStyle {
       width: 100%; /* Width is 100% for devices with a width less than 768px */
@@ -39,6 +45,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between
+    }
+    .sidebar {
+      display: none;
+    }
+    .hamburger{
+       display: block;
     }
   }
   

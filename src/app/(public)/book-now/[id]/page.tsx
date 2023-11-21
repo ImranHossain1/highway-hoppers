@@ -7,7 +7,7 @@ import {
   useSingleScheduleQuery,
 } from "@/redux/api/scheduleApi";
 import { useUserProfileQuery } from "@/redux/api/userApi";
-import {  isLoggedIn } from "@/services/auth.service";
+import { isLoggedIn } from "@/services/auth.service";
 import { Button, Col, Divider, Row, Space, Spin, message } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -154,7 +154,7 @@ const BookReservation = ({ params }: IDProps) => {
     try {
       const res = await addBooking(bookingData).unwrap();
       if (res.statusCode == 200) {
-        router.push("/user");
+        router.push("dashboard/user");
         message.success(res.message);
       }
     } catch (error: any) {
@@ -231,7 +231,7 @@ const BookReservation = ({ params }: IDProps) => {
                         handleButtonClick(sit.id);
                       }}
                       disabled={
-                        !availableSit?.data.some(
+                        !availableSit?.data?.some(
                           (available: any) =>
                             available.sitNumber === sit.sitNumber
                         )

@@ -1,0 +1,15 @@
+.sidebar {
+    display: flex;
+   }
+ .hamburger{
+    display: none;
+ }
+   @media (max-width: 768px )  {
+     .sidebar {
+       display: none;
+     }
+     .hamburger{
+        display: block;
+     }
+    
+   }

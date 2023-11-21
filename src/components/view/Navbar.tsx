@@ -8,9 +8,11 @@ import { MenuOutlined } from "@ant-design/icons";
 import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
 import { authKey } from "@/constants/storageKey";
 import dynamic from "next/dynamic";
-
+import { showSidebarDrawer } from "@/redux/slices/sidebarSlice";
+import { useAppDispatch } from "@/redux/hooks";
 const { Header, Content } = Layout;
 const { Title } = Typography;
+import styles from "./navbar.module.css";
 
 const Navbar = ({
   items,
@@ -20,7 +22,7 @@ const Navbar = ({
   hasSider?: boolean;
 }) => {
   const [userLoggedIn, setUserLoggedIn] = useState(isLoggedIn()); // Initialize userLoggedIn state
-
+  const dispatch = useAppDispatch();
   const {
     token: { colorBgLayout },
   } = theme.useToken();
@@ -29,7 +31,9 @@ const Navbar = ({
   const [showFullHeader, setShowFullHeader] = useState(true); // Initially, show the full header
   const [open, setOpen] = useState(false);
   const Login = dynamic(() => import("./Buttons/LoginButton"), { ssr: false });
-  const Logout = dynamic(() => import("./Buttons/LogoutButton"), { ssr: false });
+  const Logout = dynamic(() => import("./Buttons/LogoutButton"), {
+    ssr: false,
+  });
   const Dashboard = dynamic(() => import("./Buttons/DashboardButton"), {
     ssr: false,
   });
@@ -75,29 +79,95 @@ const Navbar = ({
 
   return (
     <Layout className="layout" style={{ background: colorBgLayout }}>
-      <Header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          background: colorBgLayout,
-        }}
-      >
-        {showFullHeader ? (
-          <>
-            <Content>
-              <Link href="/home">
-                <Title level={3} style={{ color: "white", marginBottom: 0 }}>
-                  Highway Hoppers
-                </Title>
-              </Link>
-            </Content>
+      <div className={styles.navbar}>
+        <Header
+          style={{
+            display: "flex",
+            alignItems: "center",
+            background: colorBgLayout,
+          }}
+        >
+          <Content>
+            <Link href="/home">
+              <Title level={3} style={{ color: "white", marginBottom: 0 }}>
+                Highway Hoppers
+              </Title>
+            </Link>
+          </Content>
 
+          <Menu
+            disabledOverflow
+            theme="dark"
+            mode="horizontal"
+            selectedKeys={[pathname]}
+            style={{ display: "block", background: colorBgLayout }}
+          >
+            {items?.map((item) => (
+              <Menu.Item key={item.href}>
+                <Link href={item.href}>{item.label}</Link>
+              </Menu.Item>
+            ))}
+            {userLoggedIn ? (
+              <>
+                <Menu.Item key="/dashboard">
+                  <Dashboard />
+                </Menu.Item>
+                <Menu.Item>
+                  <Logout onLogout={logout} />
+                </Menu.Item>
+              </>
+            ) : (
+              <>
+                <Menu.Item key="/login">
+                  <Login />
+                </Menu.Item>
+                <Menu.Item key="/signup">
+                  <Signup />
+                </Menu.Item>
+              </>
+            )}
+          </Menu>
+        </Header>
+      </div>
+      <div className={styles.navbar2}>
+        <Header
+          style={{
+            display: "flex",
+            alignItems: "center",
+            background: colorBgLayout,
+          }}
+        >
+          {hasSider && (
+            <Button
+              type="primary"
+              onClick={() => {
+                dispatch(showSidebarDrawer());
+              }}
+              style={{ marginRight: "10px " }}
+            >
+              <MenuOutlined />
+            </Button>
+          )}
+          <Content>
+            <Link href="/home">
+              <Title level={3} style={{ color: "white", marginBottom: 0 }}>
+                HH
+              </Title>
+            </Link>
+          </Content>
+          <Button type="primary" onClick={showDrawer}>
+            <MenuOutlined />
+          </Button>
+          <Drawer
+            title="Menu"
+            placement="right"
+            onClose={onClose}
+            visible={open}
+          >
             <Menu
-              disabledOverflow
-              theme="dark"
-              mode="horizontal"
+              mode="vertical"
               selectedKeys={[pathname]}
-              style={{ display: "block", background: colorBgLayout }}
+              style={{ borderRight: 0 }}
             >
               {items?.map((item) => (
                 <Menu.Item key={item.href}>
@@ -124,61 +194,16 @@ const Navbar = ({
                 </>
               )}
             </Menu>
-          </>
-        ) : (
-          <>
-            <Content>
-              <Link href="/home">
-                <Title level={3} style={{ color: "white", marginBottom: 0 }}>
-                  HH
-                </Title>
-              </Link>
-            </Content>
-            <Button type="primary" onClick={showDrawer}>
-              <MenuOutlined />
-            </Button>
-            <Drawer
-              title="Menu"
-              placement="right"
-              onClose={onClose}
-              visible={open}
-            >
-              <Menu
-                mode="vertical"
-                selectedKeys={[pathname]}
-                style={{ borderRight: 0 }}
-              >
-                {items?.map((item) => (
-                  <Menu.Item key={item.href}>
-                    <Link href={item.href}>{item.label}</Link>
-                  </Menu.Item>
-                ))}
-                {userLoggedIn ? (
-                  <>
-                    <Menu.Item key="/dashboard">
-                      <Dashboard />
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Logout onLogout={logout} />
-                    </Menu.Item>
-                  </>
-                ) : (
-                  <>
-                    <Menu.Item key="/dashboard">
-                      <Login />
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Signup />
-                    </Menu.Item>
-                  </>
-                )}
-              </Menu>
-            </Drawer>
-          </>
-        )}
-      </Header>
+          </Drawer>
+        </Header>
+      </div>
     </Layout>
   );
 };
 
 export default Navbar;
+{
+  /* <>
+
+</> */
+}

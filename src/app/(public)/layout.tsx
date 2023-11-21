@@ -9,7 +9,6 @@ export default function PublicLayout({
   return (
     <div>
       <PublicHeader />
-
       <div style={{ minHeight: `calc(100vh - 64px)` }}>{children}</div>
       <FooterComponent />
     </div>
