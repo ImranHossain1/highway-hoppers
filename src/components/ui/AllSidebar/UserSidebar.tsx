@@ -14,6 +14,11 @@ const UserSidebar = ({ children }: { children: React.ReactNode }) => {
       label: "My Pending Bookings",
       href: "/user/my-pending-bookings",
     },
+    {
+      key: "4",
+      label: "My Journey History",
+      href: "/user/my-completed-bookings",
+    },
   ];
   return <Sidebar items={items}>{children}</Sidebar>;
 };

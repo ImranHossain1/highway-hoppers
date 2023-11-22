@@ -1,14 +1,11 @@
 "use client";
 import TableRow from "@/components/ui/TableRow";
-import { useGetUserConfirmedBookingsQuery } from "@/redux/api/bookingApi";
+import { useGetUserCompletedBookingsQuery } from "@/redux/api/bookingApi";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import UMTable from "@/components/ui/UMTable";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import ActionBar from "@/components/ui/ActionBar";
-import { Input } from "antd";
-import { useDebounced } from "@/redux/hooks";
-import Link from "next/link";
+
 const MyBookings = () => {
   const query: Record<string, any> = {};
   const [page, setPage] = useState<number>(1);
@@ -16,9 +13,9 @@ const MyBookings = () => {
 
   query["limit"] = size;
   query["page"] = page;
-  const { data, isLoading } = useGetUserConfirmedBookingsQuery({});
+  const { data, isLoading } = useGetUserCompletedBookingsQuery({});
   const all_bookings = data?.data;
-  console.log(all_bookings);
+  console.log(data);
 
   const columns = [
     {
@@ -69,7 +66,6 @@ const MyBookings = () => {
           },
         ]}
       />
-
       {!data?.success ? (
         <p style={{ marginTop: "10px", fontWeight: "700", color: "red" }}>
           {data?.message}

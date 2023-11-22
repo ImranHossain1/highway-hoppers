@@ -16,11 +16,30 @@ export const bookingApi = baseApi.injectEndpoints({
     getUserPendingBookings: build.query({
       query: () => ({
         url: `${BOOKING_API}/get-user-Pending-Booking`,
-        method: "GET"
+        method: "GET",
+      }),
+      providesTags: [tagTypes.booking],
+    }),
+    getUserConfirmedBookings: build.query({
+      query: () => ({
+        url: `${BOOKING_API}/get-user-bookings`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.booking],
+    }),
+    getUserCompletedBookings: build.query({
+      query: () => ({
+        url: `${BOOKING_API}/get-user-completed-bookings`,
+        method: "GET",
       }),
       providesTags: [tagTypes.booking],
     }),
   }),
 });
 
-export const { useAddBookingMutation, useGetUserPendingBookingsQuery } = bookingApi;
+export const {
+  useAddBookingMutation,
+  useGetUserPendingBookingsQuery,
+  useGetUserConfirmedBookingsQuery,
+  useGetUserCompletedBookingsQuery
+} = bookingApi;
