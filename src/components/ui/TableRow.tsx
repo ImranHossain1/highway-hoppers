@@ -19,7 +19,7 @@ type SearchOptions = {
   startDate?: string;
 };
 
-const TableRow = ({ searchParams }: { searchParams: SearchOptions }) => {
+const TableRow = ({ searchParams }: { searchParams?: SearchOptions }) => {
   const query: Record<string, any> = {};
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);

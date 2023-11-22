@@ -13,7 +13,14 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.booking],
     }),
+    getUserPendingBookings: build.query({
+      query: () => ({
+        url: `${BOOKING_API}/get-user-Pending-Booking`,
+        method: "GET"
+      }),
+      providesTags: [tagTypes.booking],
+    }),
   }),
 });
 
-export const { useAddBookingMutation } = bookingApi;
+export const { useAddBookingMutation, useGetUserPendingBookingsQuery } = bookingApi;
