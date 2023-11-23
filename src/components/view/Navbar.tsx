@@ -44,7 +44,7 @@ const Navbar = ({
   const logout = () => {
     removeUserInfo(authKey);
     setUserLoggedIn(false);
-    // router.push("/login");
+    router.push("/login");
   };
 
   const showDrawer = () => {

@@ -34,6 +34,34 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.booking],
     }),
+    getAllBookings: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${BOOKING_API}/get-all-bookings`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: any, meta: IMeta) => {
+        return {
+          bookings: response.data,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.booking],
+    }),
+    getAllPendingBookings: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${BOOKING_API}/get-all-pending-bookings`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: any, meta: IMeta) => {
+        return {
+          bookings: response.data,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.booking],
+    }),
   }),
 });
 
@@ -41,5 +69,7 @@ export const {
   useAddBookingMutation,
   useGetUserPendingBookingsQuery,
   useGetUserConfirmedBookingsQuery,
-  useGetUserCompletedBookingsQuery
+  useGetUserCompletedBookingsQuery,
+  useGetAllBookingsQuery,
+  useGetAllPendingBookingsQuery,
 } = bookingApi;

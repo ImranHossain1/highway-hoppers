@@ -7,6 +7,13 @@ export const scheduleApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     userProfile: build.query({
       query: (id) => ({
+        url: `${USER_PROFILE_API}/user-profile`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.profile],
+    }),
+    myProfile: build.query({
+      query: () => ({
         url: `${USER_PROFILE_API}/my-profile`,
         method: "GET",
       }),
@@ -15,4 +22,4 @@ export const scheduleApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useUserProfileQuery } = scheduleApi;
+export const { useUserProfileQuery, useMyProfileQuery } = scheduleApi;

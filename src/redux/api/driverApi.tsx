@@ -2,25 +2,18 @@ import { IMeta, ISchedule } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const BUS_API = "/bus";
-export const busApi = baseApi.injectEndpoints({
+const DRIVER_API = "/driver";
+export const driverApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getSingleBus: build.query({
-      query: (id) => ({
-        url: `${BUS_API}/${id}`,
-        method: "GET",
-      }),
-      providesTags: [tagTypes.bus],
-    }),
-    busList: build.query({
+    driverList: build.query({
       query: (arg: Record<string, any>) => ({
-        url: BUS_API,
+        url: DRIVER_API,
         method: "GET",
         params: arg,
       }),
       transformResponse: (response: any, meta: IMeta) => {
         return {
-          buses: response.data,
+          drivers: response.data,
           meta,
         };
       },
@@ -29,4 +22,4 @@ export const busApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetSingleBusQuery, useBusListQuery } = busApi;
+export const { useDriverListQuery } = driverApi;
