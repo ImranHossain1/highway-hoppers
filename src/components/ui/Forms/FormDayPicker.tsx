@@ -10,7 +10,7 @@ type UMDatePikerProps = {
   size?: "large" | "small";
 };
 
-const FormDatePicker = ({
+const FormDayPicker = ({
   name,
   label,
   onChange,
@@ -20,6 +20,7 @@ const FormDatePicker = ({
 
   const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
     onChange ? onChange(date, dateString) : null;
+    console.log(dateString);
     setValue(name, dateString);
   };
 
@@ -31,12 +32,17 @@ const FormDatePicker = ({
         name={name}
         control={control}
         render={({ field }) => (
-          //console.log(field)
           <DatePicker
             defaultValue={field.value ? dayjs(field.value) : undefined}
             size={size}
+            format="YYYY-MM-DD ddd"
             onChange={handleOnChange}
             style={{ width: "100%" }}
+            renderExtraFooter={() => (
+              <div>
+                Day: {field.value ? dayjs(field.value).format("ddd") : ""}
+              </div>
+            )}
           />
         )}
       />
@@ -44,4 +50,4 @@ const FormDatePicker = ({
   );
 };
 
-export default FormDatePicker;
+export default FormDayPicker;

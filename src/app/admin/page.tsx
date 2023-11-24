@@ -36,7 +36,6 @@ const AdminProfile = () => {
             }}
           >
             <img
-              alt="example"
               src={profileData.profileImg}
               alt="Profile Image"
               style={{ height: "200px", width: "200px" }}

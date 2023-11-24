@@ -21,13 +21,6 @@ const DriverList = () => {
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
 
-  const debouncedTerm = useDebounced({
-    searchQuery: searchTerm,
-    delay: 600,
-  });
-  if (!!debouncedTerm) {
-    query["searchTerm"] = searchTerm;
-  }
   const getNestedValue = (obj: any, path: any) => {
     const keys = path.split(".");
     return keys.reduce(
@@ -40,7 +33,7 @@ const DriverList = () => {
   const { data, isLoading } = useDriverListQuery({ ...query });
   const drivers = data?.drivers;
   const meta = data?.meta;
-  console.log(drivers);
+
   const filteredDrivers = drivers?.filter((driver: any) => {
     const searchFields = [
       "salary",
@@ -83,7 +76,6 @@ const DriverList = () => {
       render: function (data: any) {
         return data && data.contactNo;
       },
-      sorter: true,
     },
     {
       title: "Rating",

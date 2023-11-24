@@ -1,22 +1,45 @@
 "use client";
-import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { Button, Col, Row, message } from "antd";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { departmentSchema } from "@/schemas/department";
-import { useRouter } from "next/navigation";
-import { useCreateBusMutation } from "@/redux/api/busApi";
 import Form from "@/components/ui/Forms/Form";
 import FormInput from "@/components/ui/Forms/FormInput";
 import FormSelectField from "@/components/ui/Forms/FormSelectField";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { busTypeOption } from "@/constants/global";
-
-const CreateBus = () => {
+import { useGetSingleBusQuery, useUpdateBusMutation } from "@/redux/api/busApi";
+import { Button, Col, Row, message } from "antd";
+import { useRouter } from "next/navigation";
+import React from "react";
+type IDProps = {
+  params: any;
+};
+const UpdateBus = ({ params }: IDProps) => {
+  const { id } = params;
   const router = useRouter();
-  const [createBus] = useCreateBusMutation();
-  const onSubmit = async (data: any) => {
-    data.totalSit = parseInt(data?.totalSit);
+  const { data, isLoading } = useGetSingleBusQuery(id);
+  const busData = data?.data;
+  const [updateBus] = useUpdateBusMutation();
+  const onSubmit = async (values: any) => {
+    values.totalSit = parseInt(values?.totalSit);
+    const updatedData = { ...busData, ...values };
+
+    // Identify the changed fields
+    const changedFields = Object.keys(values).filter(
+      (key) => values[key] !== busData[key]
+    );
+
+    if (changedFields.length === 0) {
+      message.error("No changes detected.");
+      return;
+    }
+
     try {
-      const res = await createBus({ ...data }).unwrap();
+      // Only update the changed fields
+      const res = await updateBus({
+        id: busData.id, // Assuming there's an 'id' field in busData
+        body: Object.fromEntries(
+          changedFields.map((key) => [key, updatedData[key]])
+        ),
+      }).unwrap();
+
       if (res?.success === true) {
         message.success(res?.message);
         router.push("/admin/all-bus");
@@ -28,6 +51,17 @@ const CreateBus = () => {
       message.error(err);
     }
   };
+
+  const defaultValues: {
+    busType: string;
+    busNumber: string;
+    totalSit: number;
+  } = {
+    busType: busData?.busType || "",
+    busNumber: busData?.busNumber || "",
+    totalSit: busData?.totalSit || "",
+  };
+
   const base = "admin";
   return (
     <div>
@@ -37,8 +71,8 @@ const CreateBus = () => {
           { label: "bus-list", link: `/${base}/all-bus` },
         ]}
       />
-      <h1>Create Bus</h1>
-      <Form submitHandler={onSubmit}>
+      <h1>Update Bus</h1>
+      <Form submitHandler={onSubmit} defaultValues={defaultValues}>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
           <Col span={8} style={{ margin: "10px 0" }}>
             <FormInput name="busNumber" label="Bus Number" />
@@ -59,11 +93,11 @@ const CreateBus = () => {
           </Col>
         </Row>
         <Button type="primary" htmlType="submit">
-          add
+          Update
         </Button>
       </Form>
     </div>
   );
 };
 
-export default CreateBus;
+export default UpdateBus;

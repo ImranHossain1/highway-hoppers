@@ -46,7 +46,7 @@ export const scheduleApi = baseApi.injectEndpoints({
 
     updateSchedule: build.mutation({
       query: (data: any) => ({
-        url: `${BUS_SCHEDULE_API}/${data.id}`,
+        url: `${BUS_SCHEDULE_API}/${data.id}/update-schedule`,
         method: "PATCH",
         data: data.body,
       }),

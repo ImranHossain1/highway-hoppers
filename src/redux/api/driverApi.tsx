@@ -5,6 +5,14 @@ import { baseApi } from "./baseApi";
 const DRIVER_API = "/driver";
 export const driverApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
+    createDriver: build.mutation({
+      query: (data) => ({
+        url: DRIVER_API,
+        method: "POST",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.driver],
+    }),
     driverList: build.query({
       query: (arg: Record<string, any>) => ({
         url: DRIVER_API,
@@ -13,13 +21,13 @@ export const driverApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response: any, meta: IMeta) => {
         return {
-          drivers: response.data,
+          drivers: response.data.data,
           meta,
         };
       },
-      providesTags: [tagTypes.schedule],
+      providesTags: [tagTypes.driver],
     }),
   }),
 });
 
-export const { useDriverListQuery } = driverApi;
+export const { useDriverListQuery, useCreateDriverMutation } = driverApi;

@@ -1,15 +1,21 @@
 export const genderOptions = [
   {
     label: "Male",
-    value: "male",
+    value: "MALE",
   },
   {
     label: "Female",
-    value: "female",
+    value: "FEMALE",
+  },
+];
+export const busTypeOption = [
+  {
+    label: "AC",
+    value: "AC",
   },
   {
-    label: "Others",
-    value: "others",
+    label: "NON AC",
+    value: "Non_AC",
   },
 ];
 export const pointsOption = [
@@ -42,90 +48,6 @@ export const pointsOption = [
     value: "RONGPUR",
   },
 ];
-export const departmentOptions = [
-  {
-    label: "HR",
-    value: "hr manager",
-  },
-  {
-    label: "Finance",
-    value: "finance",
-  },
-  {
-    label: "Management",
-    value: "management",
-  },
-];
-
-export const bloodGroupOptions = [
-  {
-    label: "A+",
-    value: "A+",
-  },
-  {
-    label: "A-",
-    value: "A-",
-  },
-  {
-    label: "B+",
-    value: "B+",
-  },
-  {
-    label: "B-",
-    value: "B-",
-  },
-  {
-    label: "AB+",
-    value: "AB+",
-  },
-  {
-    label: "AB-",
-    value: "AB-",
-  },
-  {
-    label: "O+",
-    value: "O+",
-  },
-  {
-    label: "O-",
-    value: "O-",
-  },
-];
-
-export const facultyOptions = [
-  {
-    label: "Engineering",
-    value: "engineering",
-  },
-  {
-    label: "Faculty of science and engineering",
-    value: "Faculty of science and engineering",
-  },
-];
-export const acDepartmentOptions = [
-  {
-    label: "CSE",
-    value: "cse",
-  },
-  {
-    label: "Software Engineering",
-    value: "software engineering",
-  },
-];
-export const acSemesterOptions = [
-  {
-    label: "Fall 2023",
-    value: "fall23",
-  },
-  {
-    label: "Autumn 2023",
-    value: "autumn2023",
-  },
-  {
-    label: "Summer 2023",
-    value: "summer23",
-  },
-];
 
 export const months = [
   "January",
@@ -149,13 +71,22 @@ export const monthOptions = months.map((month: string) => {
 });
 
 export const days = [
-  "SATURDAY",
-  "SUNDAY",
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
+  "Saturday",
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+];
+export const WeekDays = [
+  "Saturday",
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
 ];
 
 export const daysOptions = days.map((day: string) => {

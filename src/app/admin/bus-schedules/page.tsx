@@ -9,7 +9,7 @@ import ActionBar from "@/components/ui/ActionBar";
 import { Button, Input } from "antd";
 import { useDebounced } from "@/redux/hooks";
 import Link from "next/link";
-import { ReloadOutlined } from "@ant-design/icons";
+import { EditOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useSchedulesQuery } from "@/redux/api/scheduleApi";
 const BusSchedules = () => {
   const query: Record<string, any> = {};
@@ -114,6 +114,20 @@ const BusSchedules = () => {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
       },
       sorter: true,
+    },
+    {
+      title: "Action",
+      render: function (data: any) {
+        return (
+          <>
+            <Link href={`/admin/bus-schedules/update/${data?.id}`}>
+              <Button type="primary" style={{ margin: "0 5px" }}>
+                <EditOutlined />
+              </Button>
+            </Link>
+          </>
+        );
+      },
     },
   ];
   /* const filteredBookings = bookings?.filter((booking) =>

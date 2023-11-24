@@ -11,8 +11,7 @@ export default function PatientLayout({
   children: React.ReactNode;
 }) {
   const userLoggedIn = isLoggedIn();
-  const userInfo: any = getUserInfo();
-  console.log(userInfo);
+  const userInfo: any = getUserInfo()
   const router = useRouter();
   useEffect(() => {
     if (userLoggedIn) {

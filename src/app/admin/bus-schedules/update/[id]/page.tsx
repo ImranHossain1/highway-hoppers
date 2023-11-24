@@ -14,48 +14,38 @@ import {
   genderOptions,
   pointsOption,
 } from "@/constants/global";
-import { useAddScheduleMutation } from "@/redux/api/scheduleApi";
+import {
+  useAddScheduleMutation,
+  useSchedulesQuery,
+  useSingleScheduleQuery,
+  useUpdateScheduleMutation,
+} from "@/redux/api/scheduleApi";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 import { DatePicker, Space } from "antd";
 import FormDayPicker from "@/components/ui/Forms/FormDayPicker";
 import DriverField from "@/components/ui/Forms/DriverField";
 import BusField from "@/components/ui/Forms/BusField";
-
-const CreateSchedules = () => {
-  const [addSchedule] = useAddScheduleMutation();
+type IDProps = {
+  params: any;
+};
+const UpdateSchedule = ({ params }: IDProps) => {
+  const { id } = params;
   const router = useRouter();
+  const { data, isLoading } = useSingleScheduleQuery(id);
+  const scheduleData = data?.data;
+
+  const [updateSchedule] = useUpdateScheduleMutation();
 
   const onSubmit = async (data: any) => {
     data.busFare = parseInt(data?.busFare);
 
-    const startDateMatch = data.startDate.match(/^(\d{4}-\d{2}-\d{2}) (\w+)$/);
-
-    if (!startDateMatch) {
-      message.error("Invalid startDate format:", data.startDate);
-      return;
-    }
-
-    const [, startDate, dayOfWeekAbbreviation] = startDateMatch;
-
-    // Map the abbreviation to the full day name
-    const dayOfWeek = WeekDays.find((day) =>
-      day.toLowerCase().startsWith(dayOfWeekAbbreviation.toLowerCase())
-    );
-
-    if (!dayOfWeek) {
-      message.error("Invalid dayOfWeek abbreviation:", dayOfWeekAbbreviation);
-      return;
-    }
-
-    const transformedData = {
-      ...data,
-      startDate, // "2023-12-05"
-      dayOfWeek, // "Tuesday"
-    };
-    message.success("Creating...");
+    message.success("Updating...");
     try {
-      const res = await addSchedule({ ...transformedData }).unwrap();
+      const res = await updateSchedule({
+        ...data,
+        id: scheduleData.id,
+      }).unwrap();
       if (res?.success === true) {
         message.success(res?.message);
         router.push("/admin/bus-schedules");
@@ -65,9 +55,32 @@ const CreateSchedules = () => {
     } catch (err: any) {
       console.log(err);
       message.error(err);
-    }
+    } 
   };
 
+  const defaultValues: {
+    startTime: string;
+    endTime: string;
+    startDate: string;
+    endDate: string;
+    startingPoint: string;
+    endPoint: string;
+    dayOfWeek: string;
+    busFare: string;
+    driverId: string;
+    busId: string;
+  } = {
+    startTime: scheduleData?.startTime,
+    endTime: scheduleData?.endTime,
+    startDate: scheduleData?.startDate,
+    endDate: scheduleData?.endDate,
+    startingPoint: scheduleData?.startingPoint,
+    endPoint: scheduleData?.endPoint,
+    dayOfWeek: scheduleData?.dayOfWeek,
+    busFare: scheduleData?.busFare,
+    driverId: scheduleData?.driverId,
+    busId: scheduleData?.busId,
+  };
   const base = "admin";
   return (
     <>
@@ -77,8 +90,8 @@ const CreateSchedules = () => {
           { label: "schedules", link: `/${base}/bus-schedules` },
         ]}
       />
-      <h1 style={{ margin: "15px 0" }}>Create New Schedules</h1>
-      <Form submitHandler={onSubmit}>
+      <h1 style={{ margin: "15px 0" }}>Update Bus Schedules</h1>
+      <Form submitHandler={onSubmit} defaultValues={defaultValues}>
         {/* faculty information */}
         <div
           style={{
@@ -90,7 +103,7 @@ const CreateSchedules = () => {
         >
           <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
             <Col span={6} style={{ margin: "10px 0" }}>
-              <FormDayPicker name="startDate" label="Staring Date" />
+              <FormDatePicker name="startDate" label="Staring Date" />
             </Col>
             <Col span={6} style={{ margin: "10px 0" }}>
               <FormDatePicker name="endDate" label="Ending Date" />
@@ -101,6 +114,14 @@ const CreateSchedules = () => {
             <Col span={6} style={{ margin: "10px 0" }}>
               <FormTimePicker name={`endTime`} label="End time" />
             </Col>
+            <Col span={6} style={{ margin: "10px 0" }}>
+            <FormSelectField
+                  name="dayOfWeek"
+                  size="large"
+                  options={daysOptions}
+                  label="Day of journey"
+                  placeholder="Select"
+                />            </Col>
             <Col span={12} style={{ margin: "10px 0" }}>
               <FormSelectField
                 name="startingPoint"
@@ -140,4 +161,4 @@ const CreateSchedules = () => {
   );
 };
 
-export default CreateSchedules;
+export default UpdateSchedule;

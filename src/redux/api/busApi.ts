@@ -24,9 +24,31 @@ export const busApi = baseApi.injectEndpoints({
           meta,
         };
       },
-      providesTags: [tagTypes.schedule],
+      providesTags: [tagTypes.bus],
+    }),
+    createBus: build.mutation({
+      query: (data) => ({
+        url: BUS_API,
+        method: "POST",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.bus],
+    }),
+
+    updateBus: build.mutation({
+      query: (data: any) => ({
+        url: `${BUS_API}/${data.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.bus],
     }),
   }),
 });
 
-export const { useGetSingleBusQuery, useBusListQuery } = busApi;
+export const {
+  useGetSingleBusQuery,
+  useUpdateBusMutation,
+  useBusListQuery,
+  useCreateBusMutation,
+} = busApi;
