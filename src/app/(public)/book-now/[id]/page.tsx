@@ -1,12 +1,12 @@
 "use client";
 import Loading from "@/app/loading";
-import Form from "@/components/ui/Forms/Form";
-import FormInput from "@/components/ui/Forms/FormInput";
+import Form from "@/components/Forms/Form";
+import FormInput from "@/components/Forms/FormInput";
 import {
   useAvailableSitsQuery,
   useSingleScheduleQuery,
 } from "@/redux/api/scheduleApi";
-import { useUserProfileQuery } from "@/redux/api/userApi";
+import { useMyProfileQuery, useUserProfileQuery } from "@/redux/api/userApi";
 import { isLoggedIn } from "@/services/auth.service";
 import { Button, Col, Divider, Row, Space, Spin, message } from "antd";
 import { useRouter } from "next/navigation";
@@ -61,8 +61,7 @@ const BookReservation = ({ params }: IDProps) => {
     data: userData,
     isLoading: userLoading,
     isError: userError,
-  } = useUserProfileQuery({});
-
+  } = useMyProfileQuery({});
   useEffect(() => {
     if (userLoggedIn) {
       if (availableSitError) {
@@ -396,7 +395,7 @@ const BookReservation = ({ params }: IDProps) => {
                     className="gutter-row"
                     style={{ textAlign: "right" }}
                   >
-                    <h3>500</h3>
+                    <h3>{data?.data?.busFare}</h3>
                   </Col>
                   <Col span={12} className="gutter-row">
                     Sit Number

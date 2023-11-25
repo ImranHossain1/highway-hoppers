@@ -13,6 +13,27 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.booking],
     }),
+    confirmBooking: build.mutation({
+      query: () => ({
+        url: `${BOOKING_API}/complete-booking`,
+        method: "PATCH",
+      }),
+      invalidatesTags: [tagTypes.booking],
+    }),
+    cancelBooking: build.mutation({
+      query: () => ({
+        url: `${BOOKING_API}/cancel-all-pending-booking`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.booking],
+    }),
+    cancelSingleBooking: build.mutation({
+      query: (id) => ({
+        url: `${BOOKING_API}/${id}/cancel-single-pending-booking`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.booking],
+    }),
     getUserPendingBookings: build.query({
       query: () => ({
         url: `${BOOKING_API}/get-user-Pending-Booking`,
@@ -72,4 +93,7 @@ export const {
   useGetUserCompletedBookingsQuery,
   useGetAllBookingsQuery,
   useGetAllPendingBookingsQuery,
+  useConfirmBookingMutation,
+  useCancelBookingMutation,
+  useCancelSingleBookingMutation,
 } = bookingApi;

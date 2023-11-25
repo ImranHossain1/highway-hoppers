@@ -3,7 +3,7 @@ import PublicHeader from "@/components/ui/PublicHeader";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import DriverSidebar from "@/components/ui/AllSidebar/DriverSidebar";
+import DriverSidebar from "@/components/AllSidebar/DriverSidebar";
 
 export default function PatientLayout({
   children,

@@ -3,7 +3,7 @@ import PublicHeader from "@/components/ui/PublicHeader";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import AdminSidebar from "@/components/ui/AllSidebar/AdminSidebar";
+import AdminSidebar from "@/components/AllSidebar/AdminSidebar";
 
 export default function PatientLayout({
   children,
@@ -11,7 +11,7 @@ export default function PatientLayout({
   children: React.ReactNode;
 }) {
   const userLoggedIn = isLoggedIn();
-  const userInfo: any = getUserInfo()
+  const userInfo: any = getUserInfo();
   const router = useRouter();
   useEffect(() => {
     if (userLoggedIn) {

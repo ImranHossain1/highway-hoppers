@@ -2,8 +2,8 @@
 import { Button, Col, Divider, Row, message } from "antd";
 import loginImage from "../../../assets/login-image.png";
 import Image from "next/image";
-import Form from "@/components/ui/Forms/Form";
-import FormInput from "@/components/ui/Forms/FormInput";
+import Form from "@/components/Forms/Form";
+import FormInput from "@/components/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
 import { useUserSignUpMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";

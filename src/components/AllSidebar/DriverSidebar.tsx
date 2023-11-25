@@ -1,4 +1,4 @@
-import Sidebar from "@/components/ui/Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 import React from "react";
 
 const DriverSidebar = ({ children }: { children: React.ReactNode }) => {

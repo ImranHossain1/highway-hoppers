@@ -4,7 +4,7 @@ import { useGetUserCompletedBookingsQuery } from "@/redux/api/bookingApi";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import UMTable from "@/components/ui/UMTable";
-import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import UMBreadCrumb from "@/components/ui/HHBreadCrumb";
 
 const MyBookings = () => {
   const query: Record<string, any> = {};

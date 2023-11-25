@@ -1,12 +1,12 @@
 "use client";
 
-import Form from "@/components/ui/Forms/Form";
+import Form from "@/components/Forms/Form";
 import { Button, Col, Row, message } from "antd";
 
 import { pointsOption } from "@/constants/global";
 import styles from "../ui/Homepage/homepage.module.css";
-import FormSelectField from "./Forms/FormSelectField";
-import FormDatePicker from "./Forms/FormDatePicker";
+import FormSelectField from "../Forms/FormSelectField";
+import FormDatePicker from "../Forms/FormDatePicker";
 import { useRouter } from "next/navigation";
 
 type SearchOptions = {

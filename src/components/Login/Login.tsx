@@ -1,9 +1,9 @@
 "use client";
 import { Button, Col, Divider, Row, message } from "antd";
-import loginImage from "../../../assets/login-image.png";
+import loginImage from "../../assets/login-image.png";
 import Image from "next/image";
-import Form from "@/components/ui/Forms/Form";
-import FormInput from "@/components/ui/Forms/FormInput";
+import Form from "@/components/Forms/Form";
+import FormInput from "@/components/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
@@ -17,15 +17,16 @@ type FormValues = {
 
 const LoginPage = () => {
   const router = useRouter();
+
   const [userLogin] = useUserLoginMutation();
-  const pathname = usePathname();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
       if (res?.success === true) {
         message.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
-        router.push("/");
+        router.back();
       } else {
         message.error(res?.message);
       }

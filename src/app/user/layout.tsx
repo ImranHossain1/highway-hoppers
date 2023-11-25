@@ -1,6 +1,6 @@
 "use client";
 import PublicHeader from "@/components/ui/PublicHeader";
-import UserSidebar from "@/components/ui/AllSidebar/UserSidebar";
+import UserSidebar from "@/components/AllSidebar/UserSidebar";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

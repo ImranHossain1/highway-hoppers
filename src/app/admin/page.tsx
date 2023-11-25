@@ -36,7 +36,7 @@ const AdminProfile = () => {
             }}
           >
             <img
-              src={profileData.profileImg}
+              src={profileData?.profileImg}
               alt="Profile Image"
               style={{ height: "200px", width: "200px" }}
             />
@@ -69,31 +69,31 @@ const AdminProfile = () => {
       >
         <Row>
           <Col span={14}>
-            <Meta title="Name" description={profileData.name} />
+            <Meta title="Name" description={profileData?.name} />
           </Col>
           <Col span={10}>
-            <Meta title="Email" description={profileData.email} />
+            <Meta title="Email" description={profileData?.email} />
           </Col>
         </Row>
         <Row style={{ marginTop: "20px" }}>
           <Col span={14}>
-            <Meta title="Date Of Birth" description={profileData.DOB} />
+            <Meta title="Date Of Birth" description={profileData?.DOB} />
           </Col>
           <Col span={10}>
-            <Meta title="Gender" description={profileData.gender} />
+            <Meta title="Gender" description={profileData?.gender} />
           </Col>
         </Row>
         <Row style={{ marginTop: "20px" }}>
           <Col span={14}>
-            <Meta title="Contact No" description={profileData.contactNo} />
+            <Meta title="Contact No" description={profileData?.contactNo} />
           </Col>
           <Col span={10}>
-            <Meta title="Role" description={profileData.role} />
+            <Meta title="Role" description={profileData?.role} />
           </Col>
         </Row>
         <Row style={{ marginTop: "20px" }} justify="center">
           <Col span={24}>
-            <Meta title="Address" description={profileData.address} />{" "}
+            <Meta title="Address" description={profileData?.address} />{" "}
           </Col>
         </Row>
       </Card>
