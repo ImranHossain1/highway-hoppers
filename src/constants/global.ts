@@ -8,6 +8,20 @@ export const genderOptions = [
     value: "FEMALE",
   },
 ];
+export const busScheduleStatus = [
+  {
+    label: "Upcoming",
+    value: "Upcoming",
+  },
+  {
+    label: "Ongoing",
+    value: "Ongoing",
+  },
+  {
+    label: "Arrived",
+    value: "Arrived",
+  },
+];
 export const busTypeOption = [
   {
     label: "AC",

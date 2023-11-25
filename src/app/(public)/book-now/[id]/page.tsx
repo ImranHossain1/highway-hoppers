@@ -209,11 +209,6 @@ const BookReservation = ({ params }: IDProps) => {
                   style={{ color: "#218380", marginRight: "10px" }}
                 />
                 Choose your seats
-                {data?.data?.status !== "Upcoming" && (
-                  <span style={{ color: "red" }}>
-                    (This Journey is already finished)
-                  </span>
-                )}
               </h1>
               <Row gutter={[16, 16]}>
                 {bus?.data?.bus_Sits.map((sit: any, index: number) => (

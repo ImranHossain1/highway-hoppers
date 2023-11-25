@@ -91,9 +91,7 @@ const DriverList = () => {
       sorter: true,
     },
   ];
-  /* const filteredBookings = bookings?.filter((booking) =>
-    booking.user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ); */
+
   const onPaginationChange = (page: number, pageSize: number) => {
     console.log("page", page, "pageSize", pageSize);
     setPage(page);
@@ -122,15 +120,6 @@ const DriverList = () => {
         ]}
       />
       <ActionBar title="Driver List">
-        <Input
-          type="text"
-          size="large"
-          placeholder="Search...."
-          style={{ width: "20%" }}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
-        ></Input>
         <div>
           <Link href="/admin/driver-list/create">
             <Button type="primary">Create New Driver</Button>

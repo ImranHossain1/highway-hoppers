@@ -7,7 +7,7 @@ import FormInput from "@/components/Forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 type FormValues = {
@@ -26,7 +26,7 @@ const LoginPage = () => {
       if (res?.success === true) {
         message.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
-        router.back();
+        router.push("/");
       } else {
         message.error(res?.message);
       }

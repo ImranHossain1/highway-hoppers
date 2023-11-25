@@ -1,15 +1,19 @@
 "use client";
 import TableRow from "@/components/ui/TableRow";
-import { useGetAllPendingBookingsQuery } from "@/redux/api/bookingApi";
+import {
+  useCancelSingleBookingMutation,
+  useGetAllPendingBookingsQuery,
+} from "@/redux/api/bookingApi";
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import UMTable from "@/components/ui/UMTable";
 import UMBreadCrumb from "@/components/ui/HHBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import { useDebounced } from "@/redux/hooks";
 import Link from "next/link";
-import { ReloadOutlined } from "@ant-design/icons";
+import { DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
+import HHModal from "@/components/ui/HHModal";
 const AllPendingBooking = () => {
   const query: Record<string, any> = {};
   const [size, setSize] = useState<number>(10);
@@ -17,6 +21,10 @@ const AllPendingBooking = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const [modalTitle, setModalTitle] = useState<string>("");
+  const [bookingId, setBookingId] = useState<string>("");
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
@@ -32,6 +40,19 @@ const AllPendingBooking = () => {
   const { data, isLoading } = useGetAllPendingBookingsQuery({ ...query });
   const bookings = data?.bookings;
   const meta = data?.meta;
+  const [cancelSingleBooking] = useCancelSingleBookingMutation();
+
+  const cancelSinglePendingBooking = async (id: any) => {
+    try {
+      const res = await cancelSingleBooking(id).unwrap();
+      if (res) {
+        message.success(res?.message);
+      }
+      setOpen(false);
+    } catch (error: any) {
+      message.error(error.message);
+    }
+  };
   const columns = [
     {
       title: "Passenger Name",
@@ -80,6 +101,29 @@ const AllPendingBooking = () => {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
       },
       sorter: true,
+    },
+    {
+      title: "Action",
+      render: function (data: any) {
+        return (
+          <>
+            <Button
+              onClick={() => {
+                setOpen(true);
+                setBookingId(data.id);
+                setModalMessage(
+                  "Are you sure you want to delete this Pending Booking?"
+                );
+                setModalTitle("Cancel Booking");
+              }}
+              type="primary"
+              danger
+            >
+              <DeleteOutlined />
+            </Button>
+          </>
+        );
+      },
     },
   ];
 
@@ -134,6 +178,14 @@ const AllPendingBooking = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+      <HHModal
+        title={modalTitle}
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => cancelSinglePendingBooking(bookingId)}
+      >
+        <p className="my-5">{modalMessage}</p>
+      </HHModal>
     </div>
   );
 };

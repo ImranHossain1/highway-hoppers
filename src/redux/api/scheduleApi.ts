@@ -52,6 +52,14 @@ export const scheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.schedule],
     }),
+    updateStatus: build.mutation({
+      query: (data: any) => ({
+        url: `${BUS_SCHEDULE_API}/${data.id}/update-status`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.schedule],
+    }),
 
     deleteSchedule: build.mutation({
       query: (id: string) => ({
@@ -70,4 +78,5 @@ export const {
   useSingleScheduleQuery,
   useUpdateScheduleMutation,
   useAvailableSitsQuery,
+  useUpdateStatusMutation,
 } = scheduleApi;

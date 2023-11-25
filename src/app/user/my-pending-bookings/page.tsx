@@ -22,7 +22,7 @@ const MyPendingBookings = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>("");
   const [modalTitle, setModalTitle] = useState<string>("");
-  const [bookingId, setBooking] = useState<string>("");
+  const [bookingId, setBookingId] = useState<string>("");
   const [actionType, setActionType] = useState<string>("");
 
   query["limit"] = size;
@@ -112,7 +112,7 @@ const MyPendingBookings = () => {
             <Button
               onClick={() => {
                 setOpen(true);
-                setBooking(data.id);
+                setBookingId(data.id);
                 setModalMessage(
                   "Are you sure you want to delete this Pending Booking?"
                 );

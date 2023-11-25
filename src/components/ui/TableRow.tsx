@@ -49,7 +49,7 @@ const TableRow = ({ searchParams }: { searchParams?: SearchOptions }) => {
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-
+  query["status"] = "Upcoming";
   if (startDate) {
     query["startDate"] = startDate;
   }

@@ -22,9 +22,7 @@ const AllBus = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [searchBusType, setSearchBusType] = useState<string | undefined>(
-    undefined
-  );
+
   const [value, setValue] = useState("");
 
   query["limit"] = size;

@@ -96,7 +96,6 @@ const AllBooking = () => {
       render: function (data: any) {
         return data && data.startDate;
       },
-      sorter: true,
     },
     {
       title: "Booking Status",

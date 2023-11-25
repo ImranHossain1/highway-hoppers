@@ -42,7 +42,7 @@ const AdminProfile = () => {
             />
           </div>
         }
-        actions={[
+        /* actions={[
           <Link href={`/admin/edit/${profileData?.id}`} key={"settings"}>
             <Button
               style={{
@@ -65,7 +65,7 @@ const AdminProfile = () => {
               <EditOutlined />
             </Button>
           </Link>,
-        ]}
+        ]} */
       >
         <Row>
           <Col span={14}>

@@ -6,11 +6,16 @@ import dayjs from "dayjs";
 import UMTable from "@/components/ui/UMTable";
 import UMBreadCrumb from "@/components/ui/HHBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
-import { Button, Input } from "antd";
+import { Button, Input, Select } from "antd";
 import { useDebounced } from "@/redux/hooks";
 import Link from "next/link";
-import { EditOutlined, ReloadOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  ReloadOutlined,
+  StepForwardOutlined,
+} from "@ant-design/icons";
 import { useSchedulesQuery } from "@/redux/api/scheduleApi";
+import { busScheduleStatus, pointsOption } from "@/constants/global";
 const BusSchedules = () => {
   const query: Record<string, any> = {};
   const [size, setSize] = useState<number>(10);
@@ -18,11 +23,19 @@ const BusSchedules = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [status, setStatus] = useState<string>("Upcoming");
+  const [startingPoint, setStartingPoint] = useState<string>("");
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-
+  query["status"] = status;
+  /* if (startingPoint !== "") {
+    query["startingPoint"] = startingPoint;
+  } */
+  if (!!startingPoint) {
+    query["startingPoint"] = startingPoint;
+  }
   const getNestedValue = (obj: any, path: any) => {
     const keys = path.split(".");
     return keys.reduce(
@@ -31,7 +44,12 @@ const BusSchedules = () => {
       obj
     );
   };
-
+  const ScheduleStatusChange = (value: string) => {
+    setStatus(value);
+  };
+  const ScheduleStartPointChange = (value: string) => {
+    setStartingPoint(value);
+  };
   const { data, isLoading } = useSchedulesQuery({ ...query });
   const schedules = data?.schedules;
   const meta = data?.meta;
@@ -125,14 +143,22 @@ const BusSchedules = () => {
                 <EditOutlined />
               </Button>
             </Link>
+            {data.status !== "Arrived" && (
+              <Link href={`/admin/bus-schedules/status-update/${data?.id}`}>
+                <Button
+                  type="primary"
+                  style={{ margin: "0 5px", backgroundColor: "#218380" }}
+                >
+                  <StepForwardOutlined />
+                </Button>
+              </Link>
+            )}
           </>
         );
       },
     },
   ];
-  /* const filteredBookings = bookings?.filter((booking) =>
-    booking.user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ); */
+
   const onPaginationChange = (page: number, pageSize: number) => {
     console.log("page", page, "pageSize", pageSize);
     setPage(page);
@@ -149,6 +175,7 @@ const BusSchedules = () => {
     setSortBy("");
     setSortOrder("");
     setSearchTerm("");
+    setStartingPoint("");
   };
   return (
     <div>
@@ -166,18 +193,33 @@ const BusSchedules = () => {
           size="large"
           placeholder="Search...."
           style={{ width: "20%" }}
-          key={searchTerm} // Use searchTerm as the key
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
-        />
+        ></Input>
 
         <div>
-          <Link href="/admin/bus-schedules/create">
+          <Select
+            defaultValue="Starting point"
+            style={{ width: 120 }}
+            onChange={ScheduleStartPointChange}
+            options={pointsOption}
+          />
+          <Select
+            defaultValue={status}
+            style={{ width: 120, marginLeft: "10px" }}
+            onChange={ScheduleStatusChange}
+            options={busScheduleStatus}
+          />
+
+          <Link
+            href="/admin/bus-schedules/create"
+            style={{ marginLeft: "10px" }}
+          >
             <Button type="primary">Create New Schedule</Button>
           </Link>
 
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+          {(!!sortBy || !!sortOrder || !!searchTerm || !!startingPoint) && (
             <Button
               type="primary"
               style={{ margin: "0px 5px" }}
