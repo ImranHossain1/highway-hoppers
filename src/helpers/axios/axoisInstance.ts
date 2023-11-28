@@ -1,6 +1,7 @@
 import { authKey } from "@/constants/storageKey";
+import { getNewAccessToken } from "@/services/auth.service";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
-import { getFromLocalStorage } from "@/utils/local-storage";
+import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
 
 const instance = axios.create();
@@ -34,13 +35,23 @@ instance.interceptors.response.use(
     };
     return responseObject;
   },
-  function (error) {
-    const responseObject: IGenericErrorResponse = {
-      statusCode: error,
-      message: error?.response?.data?.message || "Something went wrong",
-      errorMessages: error?.response?.data?.message,
-    };
-    return error.response;
+  async function (error) {
+    const config = error?.config;
+    if (error.response.data.message === "jwt expired" && !config?.sent) {
+      config.sent = true;
+      const response = await getNewAccessToken();
+      const accessToken = response?.data?.data?.accessToken;
+      config.headers["Authorization"] = accessToken;
+      setToLocalStorage(authKey, accessToken);
+      return instance(config);
+    } else {
+      const responseObject: IGenericErrorResponse = {
+        statusCode: error,
+        message: error?.response?.data?.message || "Something went wrong",
+        errorMessages: error?.response?.data?.message,
+      };
+      return error.response;
+    }
   }
 );
 
