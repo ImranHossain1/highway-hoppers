@@ -1,9 +1,9 @@
 "use client";
-import PublicHeader from "@/components/ui/PublicHeader";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import DriverSidebar from "@/components/AllSidebar/DriverSidebar";
+import AuthorisedHeader from "@/components/ui/AuthorisedHeader";
 
 export default function PatientLayout({
   children,
@@ -12,7 +12,6 @@ export default function PatientLayout({
 }) {
   const userLoggedIn = isLoggedIn();
   const userInfo: any = getUserInfo();
-  console.log(userInfo);
   const router = useRouter();
   useEffect(() => {
     if (userLoggedIn) {
@@ -25,7 +24,7 @@ export default function PatientLayout({
   }, []);
   return (
     <div>
-      <PublicHeader hasSider />
+      <AuthorisedHeader hasSider />
       <DriverSidebar>{children}</DriverSidebar>
     </div>
   );

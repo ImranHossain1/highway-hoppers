@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import UMTable from "@/components/ui/UMTable";
 import UMBreadCrumb from "@/components/ui/HHBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
-import { Button, Input, Select } from "antd";
+import { Button, Col, Input, Row, Select, Space, message } from "antd";
 import { useDebounced } from "@/redux/hooks";
 import Link from "next/link";
 import {
@@ -14,8 +14,12 @@ import {
   ReloadOutlined,
   StepForwardOutlined,
 } from "@ant-design/icons";
-import { useSchedulesQuery } from "@/redux/api/scheduleApi";
+import {
+  useSchedulesQuery,
+  useUpdateStatusMutation,
+} from "@/redux/api/scheduleApi";
 import { busScheduleStatus, pointsOption } from "@/constants/global";
+import HHModal from "@/components/ui/HHModal";
 const BusSchedules = () => {
   const query: Record<string, any> = {};
   const [size, setSize] = useState<number>(10);
@@ -25,6 +29,13 @@ const BusSchedules = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [status, setStatus] = useState<string>("Upcoming");
   const [startingPoint, setStartingPoint] = useState<string>("");
+
+  //Modal
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalTitle, setModalTitle] = useState<string>("");
+  const [scheduleId, setScheduleId] = useState<string>("");
+  const [journeyStatus, setJourneyStatus] = useState<string>("");
+
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
@@ -44,16 +55,43 @@ const BusSchedules = () => {
       obj
     );
   };
+  const handleChange = (value: string) => {
+    setJourneyStatus(value);
+  };
   const ScheduleStatusChange = (value: string) => {
     setStatus(value);
   };
   const ScheduleStartPointChange = (value: string) => {
     setStartingPoint(value);
   };
-  const { data, isLoading } = useSchedulesQuery({ ...query });
+  const { data, isLoading, refetch } = useSchedulesQuery({ ...query });
   const schedules = data?.schedules;
   const meta = data?.meta;
+  const [updateStatus] = useUpdateStatusMutation();
 
+  const updateScheduleStatus = async () => {
+    const status = {
+      status: journeyStatus,
+    };
+    message.success("Updating...");
+    try {
+      const res = await updateStatus({
+        ...status,
+        id: scheduleId,
+      }).unwrap();
+      if (res?.success === true) {
+        message.success(res?.message);
+        setScheduleId("");
+        setJourneyStatus("");
+        refetch();
+        setOpen(false);
+      } else {
+        message.error(res?.message);
+      }
+    } catch (err: any) {
+      message.error(err);
+    }
+  };
   const filteredSchedules = schedules?.filter((schedule: any) => {
     const searchFields = [
       "bus.busNumber",
@@ -144,14 +182,18 @@ const BusSchedules = () => {
               </Button>
             </Link>
             {data.status !== "Arrived" && (
-              <Link href={`/admin/bus-schedules/status-update/${data?.id}`}>
-                <Button
-                  type="primary"
-                  style={{ margin: "0 5px", backgroundColor: "#218380" }}
-                >
-                  <StepForwardOutlined />
-                </Button>
-              </Link>
+              <Button
+                onClick={() => {
+                  setOpen(true);
+                  setScheduleId(data.id);
+                  setModalTitle("Update your review");
+                  setJourneyStatus(data.status);
+                }}
+                type="primary"
+                style={{ margin: "0 5px", backgroundColor: "#218380" }}
+              >
+                <StepForwardOutlined />
+              </Button>
             )}
           </>
         );
@@ -176,6 +218,7 @@ const BusSchedules = () => {
     setSortOrder("");
     setSearchTerm("");
     setStartingPoint("");
+    setStatus("Upcoming");
   };
   return (
     <div>
@@ -206,7 +249,7 @@ const BusSchedules = () => {
             options={pointsOption}
           />
           <Select
-            defaultValue={status}
+            value={status}
             style={{ width: 120, marginLeft: "10px" }}
             onChange={ScheduleStatusChange}
             options={busScheduleStatus}
@@ -219,7 +262,11 @@ const BusSchedules = () => {
             <Button type="primary">Create New Schedule</Button>
           </Link>
 
-          {(!!sortBy || !!sortOrder || !!searchTerm || !!startingPoint) && (
+          {(!!sortBy ||
+            !!sortOrder ||
+            !!searchTerm ||
+            !!startingPoint ||
+            status !== "Upcoming") && (
             <Button
               type="primary"
               style={{ margin: "0px 5px" }}
@@ -241,6 +288,25 @@ const BusSchedules = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+      <HHModal
+        title={modalTitle}
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => updateScheduleStatus()}
+      >
+        <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+          <Col span={8} style={{ margin: "10px 0" }}>
+            <Space wrap>
+              <Select
+                defaultValue={journeyStatus}
+                style={{ width: 120 }}
+                onChange={handleChange}
+                options={busScheduleStatus}
+              />
+            </Space>
+          </Col>
+        </Row>
+      </HHModal>
     </div>
   );
 };

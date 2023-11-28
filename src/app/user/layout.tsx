@@ -4,6 +4,7 @@ import UserSidebar from "@/components/AllSidebar/UserSidebar";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import AuthorisedHeader from "@/components/ui/AuthorisedHeader";
 
 export default function PatientLayout({
   children,
@@ -24,7 +25,7 @@ export default function PatientLayout({
   }, []);
   return (
     <div>
-      <PublicHeader hasSider />
+      <AuthorisedHeader hasSider />
       <UserSidebar>{children}</UserSidebar>
     </div>
   );

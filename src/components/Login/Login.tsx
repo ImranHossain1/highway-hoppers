@@ -9,7 +9,7 @@ import { useUserLoginMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import styles from "../ui/Homepage/homepage.module.css";
 type FormValues = {
   id: string;
   password: string;
@@ -37,17 +37,17 @@ const LoginPage = () => {
   };
 
   return (
-    <Row
-      justify="center"
-      align="middle"
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      <Col sm={12} md={16} lg={10}>
-        <Image src={loginImage} width={500} alt="login image" />
-      </Col>
-      <Col sm={12} md={8} lg={8}>
+    <div className={styles.loginPage}>
+      <div style={{ padding: "15px" }}>
+        <Image
+          className={styles.responsiveImage}
+          src={loginImage}
+          width={500}
+          height={500}
+          alt="login image"
+        />
+      </div>
+      <div style={{ padding: "15px" }}>
         <h1
           style={{
             margin: "15px 0px",
@@ -81,7 +81,7 @@ const LoginPage = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{ width: "50%", color: "black" }}
+                style={{ width: "100%", color: "black" }}
               >
                 Login
               </Button>
@@ -91,7 +91,7 @@ const LoginPage = () => {
                   type="default"
                   htmlType="submit"
                   style={{
-                    width: "50%",
+                    width: "100%",
                     backgroundColor: "#2a9d8f",
                     color: "white",
                   }}
@@ -102,8 +102,8 @@ const LoginPage = () => {
             </div>
           </Form>
         </div>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 

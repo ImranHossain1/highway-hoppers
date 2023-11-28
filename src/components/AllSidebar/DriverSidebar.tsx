@@ -7,7 +7,12 @@ const DriverSidebar = ({ children }: { children: React.ReactNode }) => {
     {
       key: "2",
       label: "My Schedules",
-      href: "/user/my-schedules",
+      href: "/driver/my-schedules",
+    },
+    {
+      key: "3",
+      label: "My Reviews",
+      href: "/driver/reviews",
     },
   ];
   return <Sidebar items={items}>{children}</Sidebar>;

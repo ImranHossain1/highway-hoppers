@@ -42,30 +42,6 @@ const UserProfile = () => {
             />
           </div>
         }
-        actions={[
-          <Link href={`/admin/edit/${profileData?.id}`} key={"settings"}>
-            <Button
-              style={{
-                margin: "0px 5px",
-                backgroundColor: "#218380",
-              }}
-              onClick={() => console.log(profileData)}
-            >
-              <SettingOutlined />
-            </Button>
-          </Link>,
-          <Link href={`/admin/edit/${profileData?.id}`} key={"edit"}>
-            <Button
-              style={{
-                margin: "0px 5px",
-              }}
-              onClick={() => console.log(profileData)}
-              type="primary"
-            >
-              <EditOutlined />
-            </Button>
-          </Link>,
-        ]}
       >
         <Row>
           <Col span={14}>

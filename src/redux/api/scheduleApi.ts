@@ -28,6 +28,20 @@ export const scheduleApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.schedule],
     }),
+    driverSchedules: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${BUS_SCHEDULE_API}/driverSchedule`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: any, meta: IMeta) => {
+        return {
+          schedules: response.data,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.schedule],
+    }),
 
     singleSchedule: build.query({
       query: (id) => ({
@@ -79,4 +93,5 @@ export const {
   useUpdateScheduleMutation,
   useAvailableSitsQuery,
   useUpdateStatusMutation,
+  useDriverSchedulesQuery,
 } = scheduleApi;

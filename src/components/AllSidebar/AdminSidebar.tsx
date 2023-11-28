@@ -29,6 +29,11 @@ const AdminSidebar = ({ children }: { children: React.ReactNode }) => {
       label: "Driver List",
       href: "/admin/driver-list",
     },
+    {
+      key: "7",
+      label: "Driver Reviews",
+      href: "/admin/reviews",
+    },
   ];
   return <Sidebar items={items}>{children}</Sidebar>;
 };

@@ -1,6 +1,10 @@
 import Navbar from "../view/Navbar";
 
-const PublicHeader = async () => {
+const AuthorisedHeader = async ({
+  hasSider = false,
+}: {
+  hasSider?: boolean;
+}) => {
   const items = [
     { key: "1", label: "Home", href: "/home" },
     { key: "2", label: "Book Now", href: "/book-now" },
@@ -8,9 +12,9 @@ const PublicHeader = async () => {
   ];
   return (
     <>
-      <Navbar items={items} />
+      <Navbar items={items} hasSider />
     </>
   );
 };
 
-export default PublicHeader;
+export default AuthorisedHeader;

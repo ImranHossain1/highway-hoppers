@@ -3,9 +3,22 @@
      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   }
   
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginPage Image {
+  max-width: 100%;
+  height: auto;
+}
+.responsiveImage {
+  max-width: 100%;
+  height: auto;
+}
 .bookingStyle {
     width: 70%; /* Default to 70% width on larger devices */
-
   }
   
   .banner {
@@ -51,6 +64,19 @@
     }
     .hamburger{
        display: block;
+    }
+
+    .loginPage {
+      flex-direction: column;
+    }
+  
+    .loginPage > div {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .loginPage > div:first-child {
+      margin-bottom: 20px;
     }
   }
   

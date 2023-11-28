@@ -1,9 +1,9 @@
 "use client";
-import PublicHeader from "@/components/ui/PublicHeader";
 import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import AdminSidebar from "@/components/AllSidebar/AdminSidebar";
+import AuthorisedHeader from "@/components/ui/AuthorisedHeader";
 
 export default function PatientLayout({
   children,
@@ -24,7 +24,7 @@ export default function PatientLayout({
   }, []);
   return (
     <div>
-      <PublicHeader hasSider />
+      <AuthorisedHeader hasSider />
       <AdminSidebar>{children}</AdminSidebar>
     </div>
   );
