@@ -13,7 +13,7 @@ import {
   usePostReviewMutation,
   useUpdateReviewMutation,
 } from "@/redux/api/reviewApi";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 const MyBookings = () => {
   const query: Record<string, any> = {};
@@ -172,7 +172,7 @@ const MyBookings = () => {
               type="primary"
               style={{ marginLeft: "10px", backgroundColor: "#218380" }}
             >
-              Update Review
+              <EditOutlined />
             </Button>
             <Button
               onClick={() => {

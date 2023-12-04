@@ -19,7 +19,7 @@ export const reviewApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: data,
       }),
-      invalidatesTags: [tagTypes.booking],
+      invalidatesTags: [tagTypes.booking, tagTypes.review],
     }),
     deleteReview: build.mutation({
       query: (id) => ({
