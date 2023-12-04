@@ -26,7 +26,7 @@ export const scheduleApi = baseApi.injectEndpoints({
           meta,
         };
       },
-      providesTags: [tagTypes.schedule],
+      providesTags: [tagTypes.schedule, tagTypes.booking],
     }),
     driverSchedules: build.query({
       query: (arg: Record<string, any>) => ({
@@ -55,7 +55,7 @@ export const scheduleApi = baseApi.injectEndpoints({
         url: `${BUS_SCHEDULE_API}/${id}/availableSits`,
         method: "GET",
       }),
-      providesTags: [tagTypes.schedule],
+      providesTags: [tagTypes.schedule, tagTypes.booking],
     }),
 
     updateSchedule: build.mutation({

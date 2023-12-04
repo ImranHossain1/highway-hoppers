@@ -11,8 +11,8 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import { busTypeOption } from "@/constants/global";
 
 const CreateBus = () => {
-  const router = useRouter();
   const [createBus] = useCreateBusMutation();
+  const router = useRouter();
   const onSubmit = async (data: any) => {
     data.totalSit = parseInt(data?.totalSit);
     try {
@@ -27,6 +27,9 @@ const CreateBus = () => {
       console.log(err);
       message.error(err);
     }
+  };
+  const handleBack = () => {
+    router.back();
   };
   const base = "admin";
   return (
@@ -60,6 +63,12 @@ const CreateBus = () => {
         </Row>
         <Button type="primary" htmlType="submit">
           add
+        </Button>
+        <Button
+          style={{ backgroundColor: "#218380", marginLeft: "10px" }}
+          onClick={handleBack}
+        >
+          Back
         </Button>
       </Form>
     </div>

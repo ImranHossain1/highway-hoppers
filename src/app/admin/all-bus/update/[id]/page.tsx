@@ -51,6 +51,9 @@ const UpdateBus = ({ params }: IDProps) => {
       message.error(err);
     }
   };
+  const handleBack = () => {
+    router.back();
+  };
 
   const defaultValues: {
     busType: string;
@@ -94,6 +97,13 @@ const UpdateBus = ({ params }: IDProps) => {
         </Row>
         <Button type="primary" htmlType="submit">
           Update
+        </Button>
+
+        <Button
+          style={{ backgroundColor: "#218380", marginLeft: "10px" }}
+          onClick={handleBack}
+        >
+          Back
         </Button>
       </Form>
     </div>

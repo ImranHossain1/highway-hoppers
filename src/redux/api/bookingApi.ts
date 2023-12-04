@@ -11,7 +11,7 @@ export const bookingApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
-      invalidatesTags: [tagTypes.booking],
+      invalidatesTags: [tagTypes.booking, tagTypes.schedule],
     }),
     confirmBooking: build.mutation({
       query: () => ({
@@ -53,7 +53,7 @@ export const bookingApi = baseApi.injectEndpoints({
         url: `${BOOKING_API}/get-user-completed-bookings`,
         method: "GET",
       }),
-      providesTags: [tagTypes.booking],
+      providesTags: [tagTypes.booking, tagTypes.review],
     }),
     getAllBookings: build.query({
       query: (arg: Record<string, any>) => ({

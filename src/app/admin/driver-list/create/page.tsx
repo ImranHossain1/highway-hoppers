@@ -29,7 +29,9 @@ const CreateDriver = () => {
       message.error(err);
     }
   };
-
+  const handleBack = () => {
+    router.back();
+  };
   const base = "admin";
   return (
     <>
@@ -123,6 +125,12 @@ const CreateDriver = () => {
         </div>
         <Button htmlType="submit" type="primary">
           submit
+        </Button>
+        <Button
+          style={{ backgroundColor: "#218380", marginLeft: "10px" }}
+          onClick={handleBack}
+        >
+          Back
         </Button>
       </Form>
     </>

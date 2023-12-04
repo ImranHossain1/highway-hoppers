@@ -36,7 +36,9 @@ const UpdateSchedule = ({ params }: IDProps) => {
   const scheduleData = data?.data;
 
   const [updateSchedule] = useUpdateScheduleMutation();
-
+  const handleBack = () => {
+    router.back();
+  };
   const onSubmit = async (data: any) => {
     data.busFare = parseInt(data?.busFare);
 
@@ -156,6 +158,12 @@ const UpdateSchedule = ({ params }: IDProps) => {
 
         <Button htmlType="submit" type="primary">
           submit
+        </Button>
+        <Button
+          style={{ backgroundColor: "#218380", marginLeft: "10px" }}
+          onClick={handleBack}
+        >
+          Back
         </Button>
       </Form>
     </>

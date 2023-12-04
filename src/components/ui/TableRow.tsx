@@ -65,6 +65,7 @@ const TableRow = ({ searchParams }: { searchParams?: SearchOptions }) => {
   const { data, isLoading } = useSchedulesQuery({ ...query });
   const schedules = data?.schedules;
   const meta = data?.meta;
+  console.log(data);
   const columns = [
     {
       title: "Start Point",
@@ -89,6 +90,12 @@ const TableRow = ({ searchParams }: { searchParams?: SearchOptions }) => {
     {
       title: "End Date",
       dataIndex: "endDate",
+    },
+    {
+      title: "Available Sit",
+      render: function (data: any) {
+        return data && data.bus.totalSit - data.PendingSit;
+      },
     },
     {
       title: "Bus Fare",

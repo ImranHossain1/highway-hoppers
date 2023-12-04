@@ -173,14 +173,6 @@ const Reviews = () => {
             onChange={searchByDriver}
             options={driverOptions}
           />
-
-          <Link
-            href="/admin/bus-schedules/create"
-            style={{ marginLeft: "10px" }}
-          >
-            <Button type="primary">Create New Schedule</Button>
-          </Link>
-
           {(!!sortBy ||
             !!sortOrder ||
             !!searchTerm ||
