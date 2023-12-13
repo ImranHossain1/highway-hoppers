@@ -10,6 +10,15 @@ Welcome to the Travel Agency Web Application! This project provides a range of f
 
 ### Live Server: https://travel-ageny-backend.vercel.app/api/v1
 
+### Authentication:
+
+1. Admin Authentication:
+
+```bash
+      email: imran@gmail.com
+      password: admin123
+```
+
 ## Key Features
 
 1. **User Authentication:**

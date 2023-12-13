@@ -7,22 +7,11 @@ import UMTable from "@/components/ui/UMTable";
 import UMBreadCrumb from "@/components/ui/HHBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
 import { Button, Col, Input, Row, Select, Space, message } from "antd";
-import { useDebounced } from "@/redux/hooks";
-import Link from "next/link";
-import {
-  EditOutlined,
-  ReloadOutlined,
-  StepForwardOutlined,
-} from "@ant-design/icons";
-import {
-  useSchedulesQuery,
-  useUpdateStatusMutation,
-} from "@/redux/api/scheduleApi";
-import { busScheduleStatus, pointsOption } from "@/constants/global";
-import HHModal from "@/components/ui/HHModal";
+
+import { ReloadOutlined } from "@ant-design/icons";
+
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { useDriverListQuery } from "@/redux/api/driverApi";
-import DriverField from "@/components/Forms/DriverField";
 const Reviews = () => {
   const query: Record<string, any> = {};
   const [size, setSize] = useState<number>(10);
@@ -38,10 +27,6 @@ const Reviews = () => {
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
 
-  //   query["driverId"] = driverQuery;
-  /* if (startingPoint !== "") {
-    query["startingPoint"] = startingPoint;
-  } */
   if (!!startingPoint) {
     query["startingPoint"] = startingPoint;
   }
