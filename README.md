@@ -6,9 +6,9 @@ Welcome to the Travel Agency Web Application! This project provides a range of f
 
 ### Backend ginhub: https://github.com/ImranHossain1/highway-hoppers-backend
 
-### Live Link : https://highwayhoppers.vercel.app/home
+### Live Link : [https://highwayhoppers.vercel.app/home](https://highway-hoppers.vercel.app/)
 
-### Live Server: https://travel-ageny-backend.vercel.app/api/v1
+### Live Server: https://highway-hoppers-backend.vercel.app/api/v1
 
 ### Authentication:
 
